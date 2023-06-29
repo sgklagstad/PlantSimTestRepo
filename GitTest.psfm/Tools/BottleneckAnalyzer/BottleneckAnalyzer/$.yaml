@@ -1,0 +1,212 @@
+InternalClassType: Frame
+ChangePathCtrl:
+CloseCtrl:
+ConnectCtrl:
+ConstructorCtrl:
+Coordinate3D: [0,0,0]
+CreateIn3D: true
+DestructorCtrl:
+DragDropCtrl: "Dialog.DragDrop"
+FailCtrl:
+InitCtrl:
+Label: ""
+MoveInFrameCtrl:
+MoveToFolderCtrl:
+Name: BottleneckAnalyzer
+OpenCtrl: "Dialog.showLanguage"
+PauseCtrl:
+PermitDeleteCtrl:
+RelabelCtrl:
+RenameCtrl:
+ReplacementMode: "merge"
+ShiftcalendarObject:
+UnplannedCtrl:
+UUID: 45c81fd5-dc02-421f-8d39-96a198ef1f7d
+$SequenceNumber: 1
+3D:
+ AniRotationAxis: [0,0,-1]
+ AniRotationCenter: [0,0,0]
+ BackgroundColor: -1
+ CameraAnimations:
+ ExcludeFromShowContentOfLocation: false
+ GraphicGroupNames: ["default"]
+ InternalGraphicGroups: []
+ LockedGraphicGroups: []
+ Mirror: [false,false,false]
+ NameLabelEnabled: true
+ NameLabelPosition: [-1,-1,0]
+ NameLabelRotation: [0,0,0,-1]
+ NameLabelScale: [1,1,1]
+ ObstacleForWorker: "(None)"
+ PlanningView: false
+ PointCloudPath: ""
+ PointCloudPosition: [0,0,0]
+ PointCloudRotation: [0,0,0,-1]
+ Poses:
+ Rotation: [0,0,0,-1]
+ Scale: [1,1,1]
+ SelfAnimations:
+ ShowBasePlate: true
+ ShowConnections: false
+ ShowContent: false
+ ShowExternalGraphics: true
+ ShowGrid: true
+ ShowLabels: false
+ ShowNames: true
+ ShowPointClouds: false
+ ShowShadows: false
+ ShowSky: false
+ StatesForColoring: 0xf0f
+ StatesOrientation: "(Off)"
+ VisibleGraphicGroups: ["default"]
+ $StatesTransformations:
+  HorizontalStatesPosition: [-1,1,2]
+  HorizontalStatesScale: [1,1,1]
+  HorizontalStatesScaleWithObject: true
+  VerticalStatesPosition: [-0.96,0.96,2]
+  VerticalStatesScale: [1,1,1]
+  VerticalStatesScaleWithObject: true
+$IconArray:
+-
+ Name: "Default"
+ Transparent: true
+ Size: [39,39]
+ Pixels:
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEBgIAAgIAAgIAAgIAAgIAA/v7+/v7+/v7+/v7+/v7+gIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAAQEBAQEBAQEBgIAAgIAAgIAAgIAA/v7+AA//AA//AA//AQEBgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAAQEBAQEBAQEBAQEBAQEBgIAAgIAAgIAA/v7+AA//AA//AA//AQEBgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEBgIAAgIAAgIAAgIAAgIAA/v7+AA//AA//AA//AQEBgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEBgIAAgIAAgIAAgIAAgIAA/v7+AA//AA//AA//AQEB/v7+/v7+/v7+/v7+/v7+gIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEBgIAAgIAAgIAAgIAAgIAA/v7+AA//AA//AA//AQEB/v7+fn5+fn5+fn5+AQEBgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEB/v7+/v7+/v7+/v7+/v7+/v7+AA//AA//AA//AQEB/v7+fn5+fn5+fn5+AQEBgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEB/v7+APAAAPAAAPAAAQEB/v7+AA//AA//AA//AQEB/v7+fn5+fn5+fn5+AQEB/v7+/v7+/v7+/v7+/v7+gIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEB/v7+APAAAPAAAPAAAQEB/v7+AA//AA//AA//AQEB/v7+fn5+fn5+fn5+AQEB/v7+/wAA/wAA/wAAAQEBgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEB/v7+APAAAPAAAPAAAQEB/v7+AA//AA//AA//AQEB/v7+fn5+fn5+fn5+AQEB/v7+/wAA/wAA/wAAAQEBgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEB/v7+APAAAPAAAPAAAQEB/v7+AA//AA//AA//AQEB/v7+fn5+fn5+fn5+AQEB/v7+/wAA/wAA/wAAAQEB/v7+/v7+/v7+/v7+/v7+gIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEB/v7+APAAAPAAAPAAAQEB/v7+AA//AA//AA//AQEB/v7+fn5+fn5+fn5+AQEB/v7+/wAA/wAA/wAAAQEB/v7+AP//AP//AP//AQEBgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEB/v7+APAAAPAAAPAAAQEB/v7+AA//AA//AA//AQEB/v7+fn5+fn5+fn5+AQEB/v7+/wAA/wAA/wAAAQEB/v7+AP//AP//AP//AQEBgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEB/v7+APAAAPAAAPAAAQEB/v7+AA//AA//AA//AQEB/v7+fn5+fn5+fn5+AQEB/v7+/wAA/wAA/wAAAQEB/v7+AP//AP//AP//AQEBgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEBAQEBAQEBgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEBiIiIgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEBAQEBAQEBgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEBiIiIgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEBAQEBAQEBgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBiIiIgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEBAQEBAQEBgIAAgIAAgIAAgIAAAQEBgIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEBiIiIgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEBAQEBAQEBgIAAgIAAgIAAgIAAAQEBAQEBgIAAgIAAgIAAgIAAgIAAgIAAAQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEBiIiIgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEBAQEBAQEBgIAAgIAAgIAAgIAAAQEBAQEBAQEBgIAAgIAAgIAAgIAAgIAAAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBiIiIgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBgIAAgIAAgIAAgIAAAQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEBiIiIgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBgIAAgIAAgIAAAQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEBiIiIgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBgIAAgIAAgIAAgIAAAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBiIiIgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEBAQEBAQEBgIAAgIAAgIAAgIAAgIAAAQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEBiIiIgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEBAQEBgIAAgIAAgIAAgIAAgIAAgIAAAQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEBiIiIgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEBgIAAgIAAgIAAgIAAgIAAgIAAgIAAAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBiIiIgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAA
+-
+ Name: "Default2"
+ Size: [39,39]
+ Pixels:
+ - ////7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+AQEBvr6+vr6+vr6+vr6+vr6+/v7+/v7+/v7+/v7+/v7+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+AQEBAQEBAQEBvr6+vr6+vr6+vr6+/v7+AA//AA//AA//AQEBvr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+AQEBAQEBAQEBAQEBAQEBvr6+vr6+vr6+/v7+AA//AA//AA//AQEBvr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+AQEBvr6+vr6+vr6+vr6+vr6+/v7+AA//AA//AA//AQEBvr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+AQEBvr6+vr6+vr6+vr6+vr6+/v7+AA//AA//AA//AQEB/v7+/v7+/v7+/v7+/v7+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+AQEBvr6+vr6+vr6+vr6+vr6+/v7+AA//AA//AA//AQEB/v7+fn5+fn5+fn5+AQEBvr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+AQEB/v7+/v7+/v7+/v7+/v7+/v7+AA//AA//AA//AQEB/v7+fn5+fn5+fn5+AQEBvr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+AQEB/v7+APAAAPAAAPAAAQEB/v7+AA//AA//AA//AQEB/v7+fn5+fn5+fn5+AQEB/v7+/v7+/v7+/v7+/v7+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+AQEB/v7+APAAAPAAAPAAAQEB/v7+AA//AA//AA//AQEB/v7+fn5+fn5+fn5+AQEB/v7+/wAA/wAA/wAAAQEBvr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+AQEB/v7+APAAAPAAAPAAAQEB/v7+AA//AA//AA//AQEB/v7+fn5+fn5+fn5+AQEB/v7+/wAA/wAA/wAAAQEBvr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+AQEB/v7+APAAAPAAAPAAAQEB/v7+AA//AA//AA//AQEB/v7+fn5+fn5+fn5+AQEB/v7+/wAA/wAA/wAAAQEB/v7+/v7+/v7+/v7+/v7+vr6+vr6+vr6+vr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+AQEB/v7+APAAAPAAAPAAAQEB/v7+AA//AA//AA//AQEB/v7+fn5+fn5+fn5+AQEB/v7+/wAA/wAA/wAAAQEB/v7+AP//AP//AP//AQEBvr6+vr6+vr6+vr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+AQEB/v7+APAAAPAAAPAAAQEB/v7+AA//AA//AA//AQEB/v7+fn5+fn5+fn5+AQEB/v7+/wAA/wAA/wAAAQEB/v7+AP//AP//AP//AQEBvr6+vr6+vr6+vr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+AQEB/v7+APAAAPAAAPAAAQEB/v7+AA//AA//AA//AQEB/v7+fn5+fn5+fn5+AQEB/v7+/wAA/wAA/wAAAQEB/v7+AP//AP//AP//AQEBvr6+vr6+vr6+vr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+AQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBvr6+vr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+AQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBvr6+vr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+AQEBAQEBAQEBvr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+AQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEBiIiIvr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+AQEBAQEBAQEBvr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+AQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEBiIiIvr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+AQEBAQEBAQEBvr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+AQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBiIiIvr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+AQEBAQEBAQEBvr6+vr6+vr6+vr6+AQEBvr6+vr6+vr6+vr6+vr6+vr6+vr6+AQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEBiIiIvr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+AQEBAQEBAQEBvr6+vr6+vr6+vr6+AQEBAQEBvr6+vr6+vr6+vr6+vr6+vr6+AQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEBiIiIvr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+AQEBAQEBAQEBvr6+vr6+vr6+vr6+AQEBAQEBAQEBvr6+vr6+vr6+vr6+vr6+AQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBiIiIvr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+AQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBvr6+vr6+vr6+vr6+AQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEBiIiIvr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+AQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBvr6+vr6+vr6+AQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEBiIiIvr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+AQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBvr6+vr6+vr6+vr6+AQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBiIiIvr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+AQEBAQEBAQEBvr6+vr6+vr6+vr6+vr6+AQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEBiIiIvr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+AQEBAQEBvr6+vr6+vr6+vr6+vr6+vr6+AQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEB/v7+/v7+/v7+AQEBiIiIvr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+AQEBvr6+vr6+vr6+vr6+vr6+vr6+vr6+AQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBiIiIvr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+iIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIvr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+iIiI
+ - 7Ozsvr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+vr6+iIiI
+ - 7OzsiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiI
+-
+ Name: "ClassLibrary"
+ RefPoint: [15,15]
+ Transparent: true
+ Size: [16,16]
+ Pixels:
+ - gIAAgIAAAQEBgIAAgIAAgIAAAA//AA//gIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAAQEBAQEBAQEBgIAAgIAAAA//AA//gIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAAQEBgIAAgIAAgIAAAA//AA//fn5+fn5+gIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAAQEBgIAAAOYAAOYAAA//AA//fn5+fn5+gIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAAQEBgIAAAOYAAOYAAA//AA//fn5+fn5+/wAA/wAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAAQEBgIAAAOYAAOYAAA//AA//fn5+fn5+/wAA/wAAAMjwAMjwgIAAgIAA
+ - gIAAgIAAAQEBgIAAAOYAAOYAAA//AA//fn5+fn5+/wAA/wAAAMjwAMjwgIAAgIAA
+ - gIAAgIAAAQEBgIAAAOYAAOYAAA//AA//fn5+fn5+/wAA/wAAAMjwAMjwgIAAgIAA
+ - gIAAgIAAAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEB
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAA
+ - gIAAgIAAAQEBgIAAgIAAgIAAgIAAgIAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+ - gIAAgIAAAQEBgIAAgIAAgIAAgIAAgIAAgIAAAAAA/v7+/v7+vr6+/v7+/v7+AAAA
+ - gIAAgIAAAQEBgIAAgIAAAQEBgIAAgIAAgIAAAAAAvr6+vr6+vr6+vr6+vr6+AAAA
+ - gIAAgIAAAAAAAAAAAAAAAAAAAAAAgIAAgIAAAQEB/v7+/v7+vr6+/v7+/v7+AAAA
+ - gIAAgIAAgIAAgIAAgIAAAAAAgIAAgIAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+ - gIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAAgIAA
+$CustomAttributes:
+-
+ Name: _BNanalysed
+ ID: 1
+ DataType: boolean
+ Value: false
+-
+ Name: objType
+ ID: 2
+ DataType: string
+ Value: "BottleneckAnalyzer"
+-
+ Name: ReportObject
+ ID: 3
+ DataType: object
+ Value: "ResourceStats"
+-
+ Name: HelpOnObjectDEU
+ ID: 4
+ DataType: string
+ Value: "::/BottleneckAnalyzer.html"
+-
+ Name: HelpOnObjectENU
+ ID: 5
+ DataType: string
+ Value: "::/id45383.html"
+$UserPopupMenu:
+ Active: true
+ $Entries:
+ - ["?rootfolder.Localization.getText(54)","dialog.openConfig"]
+ - ["?rootfolder.Localization.getText(51)","dialog.analyzeModel"]
+ - ["?rootfolder.Localization.getText(52)","dialog.removeStats"]
+ - ["?rootfolder.Localization.getText(53)","dialog.showStats"]
+ - ["?rootfolder.Localization.getText(55)","dialog.openHelp"]

@@ -1,0 +1,21 @@
+InternalClassType: Method
+Coordinate3D: [7.6999999999999993,-24.1,0]
+Name: getNextExpNo
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ -- called by: EndOfExp_(non-distributed simulation) and Start (state_="stopped")
+ ->integer
+ if UsingTables 
+ 	result := currExpNo
+ 	repeat -- find the next active experiment
+ 		result += 1
+ 		--until (currExpNo > ExpTable.yDim) OR ExpTable[1,currExpNo];
+ 	until ExpTable.ydim < result OR UsingRules OR (ExpTable[1, result] AND (NOT DetailedResults.ExperimentExecuted[1,result]))
+ else -- only rules_
+ 	result := currExpNo + 1
+ end
+RandomSeed: 213
+UUID: 25d2dcf5-a4f5-4614-95c6-955e7f3625ba
+$SequenceNumber: 70
+3D:
+ Mirror: [false,false,false]

@@ -1,0 +1,70 @@
+InternalClassType: Method
+Coordinate3D: [12.1,-27.5,0]
+Name: testInputString
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ -- input values must allow an instruction like x := x
+ -- called by: plausibility interaction of 'Values'
+ param attrStr:string->boolean
+ 
+ var Inherited, CanInherit:boolean
+ var s,AttrName:string
+ var p:integer
+ var o:object
+ 
+ if strLpos("[",attrStr) = 0 -- no DataTable or 1D-list
+ 	s := attrStr
+ 	while NOT existsObject(s)
+ 		p := strRpos(".",s)
+ 		AttrName := strCopy(s,p+1,strLen(s))
+ 		s := strCopy(s,1,p-1)
+ 	end
+ 	o := s
+ 	-- s := omit(attrStr,1,p) -- like "Capacity", "procTime.beta", "Failures.Failure2.Verfügbarkeit", "Failures.Failure2.interval.Mu"
+ 
+ 	if strLpos("(",AttrName) > 0 -- creationTable(1) or erzeugungsTabelle(1)
+ 		if o.InternalClassType = "WorkerPool"
+ 			o.getCreationTable(void,Inherited) -- Determine the inheritance of the creation table of a WorkerPool
+ 		end
+ 
+ 	else
+ 		if o.InternalClassType = "Variable"
+ 			AttrName := "Value"
+ 		end
+ 		o.getAttribute(AttrName,Inherited,CanInherit) -- detect the inheritance of the attribute
+ 	end
+ 
+ end -- no DataTable or 1D-list
+ 
+ var stmt:string := to_str("-> boolean ",attrStr," := ",attrStr,";result := true") --; print stmt
+ var res:any := executeSilent(stmt) -- switch OFF the inheritance of the attribute
+ result := isBoolean(res) AND res
+ 
+ /*switch tolower( AttrName) -- TODO
+ case "failures","störungen"
+ 	-- root.Process.Failures.Failure2.Verfügbarkeit
+ 	stmt:= to_str("var a:any := root.Process.Failures.Failure2; a.inheritAttribute(\\"Verfügbarkeit\\")")
+ 	executeSilent(stmt) -- switch on the inheritance of an attribute of the second failure profile
+ 
+ 	--a := o.failures.Failure2
+ 	--a.inheritAttribute("Verfügbarkeit")
+ end*/
+ 
+ 
+ if o /= void
+ 	if o.InternalClassType = "WorkerPool"
+ 		if Inherited
+ 			o.setCreationTable(void) -- switch ON the inheritance of the creationtable of a WorkerPool
+ 		end
+ 
+ 	else
+ 		if CanInherit AND Inherited
+ 			o.inheritAttribute(AttrName) -- switch ON the inheritance
+ 		end
+ 	end
+ end
+RandomSeed: 249
+UUID: 45334327-598a-4f6a-a306-b06499634451
+$SequenceNumber: 41
+3D:
+ Mirror: [false,false,false]

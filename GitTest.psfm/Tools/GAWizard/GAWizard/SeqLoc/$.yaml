@@ -1,0 +1,52 @@
+InternalClassType: Frame
+Coordinate3D: [22,0,0]
+CreateIn3D: false
+Name: SeqLoc
+Origin: 1a8a93c5-e2c1-4c28-b823-c9216c6c8159
+UUID: 223fa1af-5cd0-4fc2-a32d-7a2f45dd3941
+$SequenceNumber: 28
+$CustomAttributes:
+-
+ Name: Assignments
+ ID: 1
+ DataType: table
+ Value:
+  Comment: ~
+  CommonFormat: false
+  ListFormat:
+   ColumnIndex: true
+   ColumnWidth: 20
+   DataType: string
+   MaxXDim: 3
+   ShowDataType: true
+   ColumnFormat:
+   -
+    Index: 1
+    DataType: object
+    Width: 33
+   -
+    Index: 2
+    DataType: object
+    Width: 32
+   -
+    Index: 3
+    Alignment: "Right"
+    DataType: integer
+   RowFormat:
+   -
+    Index: 0
+    Hidden: false
+  ColumnIndex: [string,4,~,"Table to be arranged","GA table","first used column by GAwizard"]
+  Columns:
+-
+ Name: openAssignTable
+ ID: 2
+ DataType: method
+ RandomSeed: 407
+ Value: |+1
+  Assignments.opendialog
+
+$UserPopupMenu:
+ Active: true
+ $Entries:
+ - ["Open Assignment","openAssignTable"]

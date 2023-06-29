@@ -1,0 +1,36 @@
+InternalClassType: Method
+Coordinate3D: [6.4,-27.5,0]
+Name: testAttributeString
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ -- formulars are not allowed as output values
+ -- called by: plausibility interaction of 'Values'
+ param attrStr:string->boolean
+ 
+ var varStrNeu:string
+ -- detect formular:
+ var a:integer := strLpos("+",attrStr)+strLpos("-",attrStr)+strLpos("*",attrStr)+strLpos("/",attrStr)
+ if a>0
+ 	return false
+ end
+ if isOutTable(attrStr)
+ 	return true
+ end
+ 
+ a := strLpos("[",attrStr)
+ if a>0 AND strLpos(",",attrStr)=0  -- 1D-list, use the read method
+ 	b := strLpos("]",attrStr)
+ 	varStrNeu := to_str(strCopy(attrStr,1,a-1),"[", strCopy(attrStr,a+1,b-a-1),"]")
+ else
+ 	varStrNeu := attrStr
+ end -- 1D-list
+ 
+ var stmt:string := to_str("-> boolean ",varStrNeu,"; result := true") --print stmt;
+ 
+ var res:any := executeSilent(stmt)
+ result := isBoolean(res) AND res
+RandomSeed: 278
+UUID: 2ff99166-b0d4-4e9e-90a9-9a6a495b52fc
+$SequenceNumber: 22
+3D:
+ Mirror: [false,false,false]

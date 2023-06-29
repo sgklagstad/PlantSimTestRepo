@@ -1,0 +1,10 @@
+InternalClassType: Variable
+Coordinate3D: [11.8,-2.85,0]
+DataType: datetime
+Font: 2
+HasInitValue: false
+Name: startDateTime
+Origin: d584890e-baf7-4aa9-b632-669f29c281f2
+UUID: 3dee41f6-0222-479f-8d22-95974b5d8254
+$SequenceNumber: 8
+Value: 2015-1-1

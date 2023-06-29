@@ -1,0 +1,37 @@
+InternalClassType: Comment
+BackgroundColor: 14483420
+ChangePathCtrl:
+Color: 0
+ConstructorCtrl:
+Cont: ""
+Coordinate3D: [-3,3,0]
+CreateIn3D: true
+DestructorCtrl:
+DragDropCtrl:
+Font: 1
+InitCtrl:
+MoveInFrameCtrl:
+MoveToFolderCtrl:
+Name: Comment
+OpenCtrl:
+PlausibilityCtrl:
+RenameCtrl:
+SaveAsRichedit: false
+Text: "Text"
+Transparent: false
+UUID: 43c4d7ba-f57a-43ec-883d-9b51fc8804fd
+$BasicObject: true
+$SequenceNumber: 1
+3D:
+ AniRotationAxis: [0,0,-1]
+ AniRotationCenter: [0,0,0]
+ ExcludeFromShowContentOfLocation: true
+ GraphicGroupNames: ["default"]
+ LockedGraphicGroups: []
+ Mirror: [false,false,false]
+ ObstacleForWorker: "(None)"
+ Poses:
+ Rotation: [0,0,0,-1]
+ Scale: [1,1,1]
+ SelfAnimations:
+ VisibleGraphicGroups: ["default"]

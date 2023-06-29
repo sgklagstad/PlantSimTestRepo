@@ -1,0 +1,11 @@
+InternalClassType: Variable
+Coordinate3D: [39,-30,0]
+DataType: boolean
+Font: 2
+HasInitValue: false
+Name: ExpRunFromGeneralDesign
+Origin: 0f4944c4-4bd7-4f29-b98e-746708247c83
+ShowDataType: false
+UUID: 554a7736-9d6d-4914-8c93-a2fb90d84ea0
+$SequenceNumber: 33
+Value: false

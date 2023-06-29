@@ -1,0 +1,13 @@
+InternalClassType: DataTable
+CloseCtrl:
+Origin: 45f8e691-4a7a-4752-9d31-2ed80b0eb7f3
+UUID: 59ecbb5a-34cc-4f9b-920d-619aedc109d1
+$SequenceNumber: 1
+$CustomAttributes:
+-
+ Name: addLogging
+ ID: 2
+ $DataType: method
+ RandomSeed: 268
+$Data:
+ Columns:

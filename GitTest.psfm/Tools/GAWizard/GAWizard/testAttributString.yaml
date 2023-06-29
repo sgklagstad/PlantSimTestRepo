@@ -1,0 +1,30 @@
+InternalClassType: Method
+Coordinate3D: [26,-8,0]
+Name: testAttributString
+Origin: e323fd22-5471-40c5-a13c-6e974c6e8831
+Program: |+1
+ -- called by: plausibility interaction of 'Fitness'
+ param attrStr:string->boolean
+ 
+ -- detect formular:
+ var a:integer := strLpos("+",attrStr)+strLpos("-",attrStr)+strLpos("*",attrStr)+strLpos("/",attrStr)
+ if a>0 
+ 	return false
+ end
+ 
+ a := strLpos("[",attrStr)
+ var varStrNeu:string
+ if a>0 AND strLpos(",",attrStr)=0  -- 1D-list, use the "read"-method
+ 	b := strLpos("]",attrStr)
+ 	varStrNeu := to_str(strCopy(attrStr,1,a-1),"[", strCopy(attrStr,a+1,b-a-1),"]")
+ else
+ 	varStrNeu := attrStr
+ end-- 1D-list
+ 
+ var stmt:string := to_str("-> boolean ",varStrNeu,"; result := true")
+ var res:any := executeSilent(stmt)
+ 
+ result := isBoolean(res) AND res
+RandomSeed: 404
+UUID: 2bf30990-98d8-4e44-85f5-2a9377b3ed97
+$SequenceNumber: 32

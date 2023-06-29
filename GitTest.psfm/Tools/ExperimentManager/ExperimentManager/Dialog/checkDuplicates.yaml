@@ -1,0 +1,19 @@
+InternalClassType: Method
+Coordinate3D: [1,7,0]
+Name: checkDuplicates
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ // Method checks for duplicated experiment names in the Experiment Table
+ -> boolean
+ var experiments := ~.ExpTable
+ for var l := 1 to experiments.yDim - 1
+ 	for var j := l+1 to experiments.yDim
+ 		if experiments[0,l] ~= experiments[0,j] and experiments[0,l] /= "" and experiments[0,j] /= ""
+ 			return true
+ 		end
+ 	next
+ next
+ return false
+RandomSeed: 35
+UUID: ddf3bb6c-750c-4d72-a922-a1a3bdc6371d
+$SequenceNumber: 19

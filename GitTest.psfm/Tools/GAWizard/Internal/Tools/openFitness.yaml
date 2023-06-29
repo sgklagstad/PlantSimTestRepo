@@ -1,0 +1,14 @@
+InternalClassType: Method
+Coordinate3D: [19,-10,0]
+Name: openFitness
+Origin: e323fd22-5471-40c5-a13c-6e974c6e8831
+Program: |+1
+ -- called by: context menu 'protocol'
+ var tabObj:object
+ 
+ tabObj := ?.Fitness
+ tabObj.openDialog
+
+RandomSeed: 485
+UUID: d5e2a8be-5688-47bb-aded-4c3614044ce0
+$SequenceNumber: 17

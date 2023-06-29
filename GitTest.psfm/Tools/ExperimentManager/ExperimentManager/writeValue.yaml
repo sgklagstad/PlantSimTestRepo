@@ -1,0 +1,15 @@
+InternalClassType: Method
+Coordinate3D: [3.3999999999999986,-27.5,0]
+Name: writeValue
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ -- set AttrStr := Values
+ -- called by:_evalExpTable
+ param AttrStr:string, newVal:any -> boolean
+ 
+ return executeSilent(to_str("param a:any -> boolean ",AttrStr,":= a; return true"), newVal)
+RandomSeed: 250
+UUID: 1a77ec80-dbc6-471c-be09-7e37708ff978
+$SequenceNumber: 37
+3D:
+ Mirror: [false,false,false]

@@ -1,0 +1,30 @@
+InternalClassType: Method
+Coordinate3D: [22.150000000000002,-19.85,0]
+Name: quoteInStr
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ -- called by:_M_ReadResult
+ -- read_table cells with are accessed by user defined indices
+ /* test by:
+ 	s := "tab[\\"xy\\",\\"ab\\"]";
+ 	print s;
+ 	print quoteInStr(s);*/
+ param AttrStr:string->string
+ 
+   var s:string;var i,k:integer
+ 
+ s := "\\""
+ result := AttrStr
+ k := strLpos(s,result)
+ if k > 0 
+ 	for i := strLen(result) downto k 
+ 		if s = strCopy(result,i,1) 
+ 			result := to_str(strCopy(result,1,i-1),"\\\\",strOmit(result,1,i-1))
+ 		end
+ 	next
+ end
+RandomSeed: 214
+UUID: 92c8be05-53b6-4d1d-b6de-8c2d4854b608
+$SequenceNumber: 69
+3D:
+ Mirror: [false,false,false]

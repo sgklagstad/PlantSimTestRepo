@@ -1,0 +1,33 @@
+InternalClassType: Method
+Coordinate3D: [30.85,-39.55,0]
+Name: performRule
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ -- Performing a valid rule
+ -- Called by: evalRules (non-distributed simulation via DefExperiments_)
+ param RuleNo, ExpNo: integer
+ 
+ var RulesTab:object := Rules.Rules
+ var RuleName:string := RulesTab[2,RuleNo]
+ 
+ if RulesTab[4,RuleNo]/= void AND Rules.TestConditionExp(RulesTab[3,RuleNo], ExpNo) AND-- table condition
+     RulesTab[4,RuleNo].execute -- method condition
+ 
+ 	var s:string := to_str("Perform actions of Rule \\"",RuleName,"\\" since its condition is satisfied.")
+ 	Recording.append(s)
+ 	--ReportRules[RuleNo,ExpNo] := rootfolder.Localization.getText(381); -- Condition satisfied
+ 	Rules.DoActionExp(RulesTab[5,RuleNo],ExpNo,RuleName)
+ 	if RulesTab[6,RuleNo] /= void
+ 		RulesTab[6,RuleNo].execute -- method action
+ 	end
+ 
+ else
+ 	s := to_str("Do not perform actions of Rule \\"",RuleName,"\\", since its condition is not satisfied.")
+ 	Recording.append(s)
+ 	ReportRules[RuleNo,ExpNo] := rootfolder.Localization.getText(382) -- Condition not satisfied
+ end
+RandomSeed: 282
+UUID: 7b639d91-f57b-44ab-8def-fcc0eaa3a0e8
+$SequenceNumber: 17
+3D:
+ Mirror: [false,false,false]

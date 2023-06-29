@@ -1,0 +1,71 @@
+InternalClassType: DataTable
+CloseCtrl: "RootFolder.Internal.Tools.closeTab"
+Coordinate3D: [16.35,0,0]
+Label: ""
+Name: ProblemDefinition
+Origin: b11ff439-c617-440e-9cac-aca6c851b6d3
+UUID: c3a41491-85bd-4a94-be4b-dd4dd7aace97
+$SequenceNumber: 20
+$CustomAttributes:
+-
+ Name: isOpen
+ ID: 1
+ DataType: boolean
+ Value: false
+$Data:
+ Comment: ~
+ ListFormat:
+  ColumnIndex: true
+  ColumnWidth: 20
+  DataType: string
+  ShowDataType: true
+  ColumnFormat:
+  -
+   Index: 1
+   ReadOnly: true
+   Width: 14
+  -
+   Index: 2
+   ReadOnly: false
+  -
+   Index: 3
+   ReadOnly: true
+   Width: 14
+  -
+   Index: 4
+   ReadOnly: false
+  -
+   Index: 5
+   ReadOnly: true
+   Width: 14
+  -
+   Index: 6
+   ReadOnly: false
+  -
+   Index: 7
+   ReadOnly: true
+   Width: 14
+  -
+   Index: 8
+   ReadOnly: false
+  -
+   Index: 9
+   ReadOnly: true
+   Width: 14
+  -
+   Index: 10
+   ReadOnly: false
+  RowFormat:
+  -
+   Index: 0
+   FontSize: 1
+   FontColor: 0xa00000
+   Color: 0xc0c0c0
+   Hidden: false
+ ColumnIndex: [string,10,~,"Parameter:",~,"Parameter:",~,"Parameter:",~,"Parameter:",~,"Parameter:"]
+ Columns:
+ - [1,string,3,"Lower bound","Upper bound","Increment"]
+ - [3,string,3,"Lower bound","Upper bound","Increment"]
+ - [5,string,3,"Lower bound","Upper bound","Increment"]
+ - [7,string,3,"Lower bound","Upper bound","Increment"]
+ - [9,string,3,"Lower bound","Upper bound","Increment"]

@@ -1,0 +1,11 @@
+InternalClassType: Variable
+Coordinate3D: [40,-32,0]
+DataType: string
+Font: 2
+HasInitValue: false
+Name: factorDesignValue
+Origin: 0f4944c4-4bd7-4f29-b98e-746708247c83
+ShowDataType: false
+UUID: 93a79aa3-ffb8-4488-ba00-c863868f3374
+$SequenceNumber: 26
+Value: ""

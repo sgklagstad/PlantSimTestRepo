@@ -1,0 +1,44 @@
+InternalClassType: Method
+Coordinate3D: [11.55,-4,0]
+Name: setTaskTable
+Origin: e323fd22-5471-40c5-a13c-6e974c6e8831
+Program: |+1
+ -- called by: resetGA_(button 'Wizard Reset') and by APPLY/OK of the dialog
+ ->boolean
+ var k:integer
+ var obj:object
+ var locTasks:table[object]
+ locTasks.create
+ locTasks.insertList(1,1,gaOptimization.taskTable.copy({1,1}..{1,*}))
+ 
+ for var j := locTasks.yDim downto 1 
+ 	obj := locTasks[1,j]
+ 	if obj=void OR obj.~ = seqLoc OR obj.~ = current 
+ 		locTasks.cutRow(j)
+ 	end
+ next
+ 
+ gaOptimization.taskTable.delete
+ if GAAllocation.yDim>0 
+ 	k := 1
+ 	gaOptimization.taskTable[1,k]:= GAAllocation
+ 	--" user defined optimization parameter."
+ 	print to_str(GAAllocation.yDim, rootfolder.Localization.getText(11))
+ end -- end of step 2
+ 
+ var AssignTab:table := seqLoc.Assignments
+ for var j := 1 to AssignTab.yDim 
+ 	k := k+1
+ 	obj := AssignTab[2,j]
+ 	GaOptimization.taskTable[1,k]:= obj
+ 	print rootfolder.Localization.getText(44),": ",obj --Sequence
+ next
+ for var j := 1 to locTasks.yDim 
+ 	k := k+1
+ 	GaOptimization.taskTable[1,k] := locTasks[1,j]
+ next
+ 
+ result := (GaOptimization.taskTable.yDim>0)
+RandomSeed: 429
+UUID: 13b8feb2-fa24-4b37-9e56-71ec4513b725
+$SequenceNumber: 12

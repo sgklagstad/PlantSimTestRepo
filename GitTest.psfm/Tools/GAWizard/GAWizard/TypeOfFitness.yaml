@@ -1,0 +1,15 @@
+InternalClassType: Variable
+Color: 16711680
+Comment: |+1
+ set by method "resetGA",\r
+ used for the HTML report
+Coordinate3D: [32.300000000000004,-11,0]
+DataType: string
+Font: 2
+HasInitValue: false
+Name: TypeOfFitness
+Origin: d584890e-baf7-4aa9-b632-669f29c281f2
+ShowDataType: false
+UUID: 5098ee26-3e85-4dbd-9268-222711e160ad
+$SequenceNumber: 30
+Value: "real"

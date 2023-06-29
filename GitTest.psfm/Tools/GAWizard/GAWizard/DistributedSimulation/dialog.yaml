@@ -1,0 +1,11 @@
+InternalClassType: Dialog
+Coordinate3D: [7.3500000000000005,-6,0]
+Origin: 2c6e7fec-95e3-43d3-a7a8-41264f0af23b
+UUID: 983cb88c-6e67-47e1-80e4-058dd6016fee
+$SequenceNumber: 6
+$CustomAttributes:
+-
+ Name: callback
+ ID: 1
+ $DataType: method
+ RandomSeed: 422

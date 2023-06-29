@@ -1,0 +1,47 @@
+InternalClassType: DataTable
+Coordinate3D: [10,-1,0]
+Name: RemoteMachines
+Origin: b11ff439-c617-440e-9cac-aca6c851b6d3
+UUID: 01d6979d-56ef-46ce-9006-a630eb8bdda4
+$SequenceNumber: 4
+$Data:
+ Comment: ~
+ ListFormat:
+  ColumnIndex: true
+  ColumnWidth: 20
+  DataType: string
+  MaxXDim: 4
+  RowIndex: true
+  ShowDataType: true
+  ColumnFormat:
+  -
+   Index: 0
+   Hidden: false
+   Width: 15
+  -
+   Index: 1
+   Alignment: "Right"
+   DataType: integer
+   Width: 20
+  -
+   Index: 2
+   Alignment: "Right"
+   DataType: integer
+   Width: 14
+  -
+   Index: 3
+   Alignment: "Right"
+   DataType: time
+   Width: 20
+  -
+   Index: 4
+   Alignment: "Right"
+   DataType: time
+   Width: 24
+  RowFormat:
+  -
+   Index: 0
+   Alignment: "Center"
+   Hidden: false
+ ColumnIndex: [string,5,"Computer","Number of parallel processes","Number of runs","Total simulation time","Mean running time of a simulation"]
+ Columns:

@@ -1,0 +1,26 @@
+InternalClassType: Method
+Coordinate3D: [17.5,-24.1,0]
+Name: getActiveContr
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ -- called by: resetWizard_, Start_
+ param contrObj:object->object
+ 
+ var rootObj:object := contrObj.rootframe
+ for var j := 1 to rootObj.numNodes
+ 	var obj:object := rootObj.node(j)
+ 	if obj.InternalClassType ="Frame" AND
+ 	    obj.getAttrNo("objType")>0 AND
+ 	    obj.objType ="Experiment" AND
+ 	    contrObj /= obj AND
+ 	    obj.State /= "ready"
+ 	 --"There is another active Experimentmanager"
+ 		messageBox(to_str(rootfolder.Localization.getText(120)," '",obj.name,"'"),1,4) -- info
+ 		result := obj
+ 	end
+ next
+RandomSeed: 242
+UUID: 8979b951-07e9-4b3b-82a4-0c4ea7eb2b24
+$SequenceNumber: 47
+3D:
+ Mirror: [false,false,false]

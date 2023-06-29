@@ -1,0 +1,27 @@
+InternalClassType: Method
+Coordinate3D: [9,-1,0]
+Name: openTab
+Origin: e323fd22-5471-40c5-a13c-6e974c6e8831
+Program: |+1
+ /*
+ called by: 
+ */
+ param tableObj,dialogObj:object
+ 
+ var ButName:string;var ApplObj:object
+ 
+ tableObj.inheritContents := false
+ ApplObj := ?.~.~
+ ButName := to_str(tableObj.name,"_B")
+ if tableObj.isOpen 
+ 	tableObj.closeDialog
+ 	tableObj.isOpen:=false
+ 	dialogObj.setCaption(ButName,rootfolder.Localization.getText(6))--"Open"
+ else
+ 	tableObj.openDialog
+ 	tableObj.isOpen:=true
+ 	dialogObj.setCaption(ButName,rootfolder.Localization.getText(55))--"Close"
+ end
+RandomSeed: 491
+UUID: 26dfe1c0-db26-40f0-8a16-70fbafc187fe
+$SequenceNumber: 11

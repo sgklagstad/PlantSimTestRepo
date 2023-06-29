@@ -1,0 +1,8 @@
+InternalClassType: Variable
+Comment: "Row in the MachinesTable"
+Coordinate3D: [11.850000000000001,-0.8,0]
+Font: 2
+Name: MachineIndex
+Origin: 0f4944c4-4bd7-4f29-b98e-746708247c83
+UUID: a743702e-7d1e-40f8-9580-bca019af0278
+$SequenceNumber: 1

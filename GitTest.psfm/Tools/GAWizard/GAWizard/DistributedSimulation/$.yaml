@@ -1,0 +1,12 @@
+InternalClassType: Frame
+Coordinate3D: [32.3,-9,0]
+Name: DistributedSimulation
+Origin: 325384bd-2bd5-46f6-8273-9a37320e53aa
+UUID: 5170f4af-e2cc-4a93-a138-c2101bcfdbb0
+$SequenceNumber: 14
+$CustomAttributes:
+-
+ Name: mainDialog
+ ID: 1
+ $DataType: object
+ Value: "~.Dialog.GAWizard"

@@ -1,0 +1,35 @@
+InternalClassType: DataTable
+Coordinate3D: [21.45,-3.25,0]
+Name: Kind_Input
+Origin: 6fb33eda-8c16-46cb-b4e8-ad231b2e826f
+UUID: df2a83ac-b71b-4917-bd83-f801e56751b1
+$SequenceNumber: 39
+$Data:
+ Comment: ~
+ ListFormat:
+  ColumnIndex: true
+  ColumnWidth: 20
+  DataType: string
+  MaxXDim: 3
+  RowIndex: true
+  ShowDataType: true
+  ColumnFormat:
+  -
+   Index: 0
+   Hidden: false
+   Width: 28
+  -
+   Index: 1
+   Alignment: "Center"
+   Width: 7
+  -
+   Index: 3
+   DataType: boolean
+   Width: 11
+  RowFormat:
+  -
+   Index: 0
+   Alignment: "Center"
+   Hidden: false
+ ColumnIndex: [string,4,"Input values","set by","Original Value","Inherited"]
+ Columns:

@@ -1,0 +1,53 @@
+InternalClassType: Method
+Coordinate3D: [0.5,-13.8,0]
+Name: DefExperiments
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ -- Preparing the tables for the next experiment and setting the parameters
+ -- called by: new call chain via _reset (non-distrubted simulation)
+ 
+ var ExpNo:integer := CurrExpNo -- Nwdata
+ 
+ /*if (NOT UsingRules) AND UsingTables AND_numExp > 1
+ 	Dialog.Dialog.setCaption("CurrExp", to_str(currExpNo,"/",numExp_))
+ else -- no_rules and multiple experiments
+ 	Dialog.Dialog.setCaption("CurrExp", to_str(currExpNo))
+ end		*/
+ 
+ Dialog.Dialog.setCaption("CurrExp", to_str(currExpNo))
+ Dialog.Dialog.setCaption("CurrObs", to_str(currRunNo))
+ 
+ if DS_
+ 	DS_Experiment  := currExpNo
+ 	DS_Observation := currRunNo
+ end
+ 
+ if UsingTables
+ 	evalExpTable(ExpNo) -- write the numerical values into_InputValues
+ end
+ if strLen(UserConfigMethod) > 0 --_UsingUserMethod
+ 	--_Protocol[3,ExpNo] := rootfolder.localization.getText(366)
+ 	-- str_to_method(to_str(~,".",UserConfigMethod)).execute(ExpNo)
+ 	if strLpos(".",UserConfigMethod) = 1
+ 		str_to_method(UserConfigMethod).execute(ExpNo)
+ 	else
+ 		str_to_method(to_str(~,".",UserConfigMethod)).execute(ExpNo)
+ 	end
+ 	--_UserMethod(ExpNo)
+ end
+ 
+ if UsingRules AND (ExpNo <= NumRulesExp) -- NumRulesExp is defined on tab 'Rules'
+ 	evalRules(ExpNo)
+ end
+ 
+ callEvery(rootframe,"prepareSetting",ExpNo)
+ 
+ firstReset := false
+ eventController.reset
+ 
+ -- eventController.start --WithoutAnimation
+RandomSeed: 303
+UUID: d6d2f1fe-3c17-4d71-a42e-6fe2bcd067af
+$SequenceNumber: 4
+3D:
+ Mirror: [false,false,false]

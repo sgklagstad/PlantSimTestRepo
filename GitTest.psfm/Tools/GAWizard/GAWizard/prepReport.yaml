@@ -1,0 +1,317 @@
+InternalClassType: Method
+Coordinate3D: [6,-17.35,0]
+Name: prepReport
+Origin: e323fd22-5471-40c5-a13c-6e974c6e8831
+Program: |+1
+ var a,b:integer
+ var t1:table
+ 
+ var report:object := ReportObject
+ for var j:=1 to root.numNodes loop root.node(j).selected := false;next-- unselect all object in the root frame
+ report.content := ""
+ report.appendLine("[!current, header, *]")
+ 
+ var statTab:object := statisticalEvaluation
+ var numInd := statTab.ydim
+ var AssignTab := seqLoc.Assignments
+ var ZoomFact:real := 0.8
+ 
+ var bestInd:object := bestIndividuals
+ var resultsBool := (bestInd.yDim>0)
+ if NOT resultsBool 
+ 	Dialog.sayNoResults
+ end
+ var VersionStr,nameStr:string
+ rootfolder.getLibraryInfo(nameStr, versionStr)
+ 
+ report.appendLine(to_str("#",rootfolder.Localization.getText(324))) -- General Information
+ -- class has empty textboxes on tab 'Miscellaneous'
+ var str:string := rootfolder.Localization.getText(326) -- "Model file [*.spp]:"
+ str := strOmit(str, strLpos("[*.spp]", str),8) -- remove "[*.spp]"
+ report.appendline(to_str("* ",strTrim(str),": ",modelFile))
+ report.appendline(to_str("* ", rootfolder.Localization.getText(327),": ",current)) -- GAwizard:
+ var t:table := Report.Informations -- version_removed
+ str := t[1,1]
+ if strLen(str) > 0 
+ 	report.appendline(to_str("* ",rootfolder.Localization.getText(259)," ",str)) -- Name of the project:
+ end
+ str := t[1,2]
+ if strLen(str) > 0 
+ 	if strLen(MailReceiver) > 0  -- Responsible/Ersteller as Email link
+ 		str := to_str("* ",rootfolder.Localization.getText(261)," <a style=\\"color:blue\\" href=\\"mailto:", MailReceiver," ?subject=Simulation%20Report\\">", str,"</a>")
+ 	else -- Responsible/Ersteller as text
+ 		str := to_str("* ",rootfolder.Localization.getText(261)," ",str) -- Responsible/Ersteller
+ 	end
+ 	report.appendline(str)
+ else
+ 	if strLen(MailReceiver) > 0 
+ 		str := to_str("* ",rootfolder.Localization.getText(261)," <a style=\\"color:blue\\" href=\\"mailto:", MailReceiver," ?subject=Optimization%20Report\\">", MailReceiver,"</a>") -- Contact
+ 		report.appendline(str)
+ 	end
+ end
+ str := to_str("* ",rootfolder.Localization.getText(328),": ",sysdate) -- Generated on
+ report.appendline(str)
+ 
+ str := to_str("* ",rootfolder.Localization.getText(107)," ", runningTime) -- Running time of the optimization:
+ report.appendLine(str) -- like: 	Running time of the optimization: 4.8640	
+ 
+ report.append(strChr(10))
+ 	
+ report.append(to_str("## ",rootfolder.Localization.getText(83),strChr(10))) -- Theme "Model"
+ report.append(to_str("[",root,",*]",strChr(10))) -- scroll according Display of your monitor
+ 
+ report.appendLine(to_str("#",rootfolder.Localization.getText(84))) -- Optimization results obtained best evaluation (174)
+ var timeVar:time
+ if resultsBool 
+ 	var str2: string := TypeOfFitness
+ 	var timeFitnessBool:boolean := ( str2~="time")
+ 	
+ 	if timeFitnessBool 
+ 		timeVar := bestFitness -- (real -> time) conversion
+ 		str := to_str(rootfolder.Localization.getText(98)," ",timeVar) -- Best Fitness:
+ 	else
+ 		str := to_str(rootfolder.Localization.getText(98)," ",bestFitness) -- Best Fitness:
+ 	end
+ 	report.appendLine(str) -- like: 	Best Fitness: 39.7123391690819
+ 	report.appendLine(rootfolder.Localization.getText(61)) -- The parameters of the best solution are set in the model.
+ 		
+ 	report.appendLine(to_str("##",rootfolder.Localization.getText(162))) --"Fitness calculation"
+ 	var obj:object
+ 	if UserFitness 
+ 		report.appendLine(rootfolder.Localization.getText(122))  -- The fitness calculation is done by an user defined method.	
+ 	else
+ 	
+ 		obj := Fitness
+ 		if obj.yDim = 1 
+ 			report.appendLine(to_str("**",obj[1,1],"** ",rootfolder.Localization.getText(124)," ",obj[2,1])) -- like: 'root.Buffer.capacity' with weighting 1
+ 		else
+ 			-- 124: with weighting, 125 data type
+ 			report.appendLine(rootfolder.Localization.getText(123)) -- Fitness calculation by a weighted sum
+ 			report.appendLine(to_str("[",Fitness,"]")) -- Show the table with the definition of weights
+ 			
+ 			report.appendLine(rootfolder.Localization.getText(170)) -- Calculation of the fitness values of the best solution
+ 			var bestObserv:table := bestIndividuals[3 + GAOptimization.tasktable.ydim, 1]
+ 			bestObserv.copyFormatTo(FitnessObservation)
+ 			FitnessObservation.delete;
+ 			bestObserv.copyRangeTo({1,1}..{*,*}, FitnessObservation, 1,1)
+ 			report.appendLine(to_str("[",FitnessObservation,"]"))
+ 			--report.appendLine(to_str(str,"** ",obj[1,k],"** ",rootfolder.Localization.getText(124)," ",obj[2,k]));
+ 			--report.appendLine(to_str("** ",rootfolder.Localization.getText(123)," (",rootfolder.Localization.getText(125)," **",str2,"):"));
+ 		end
+ 	end	
+ 	
+ 	str := ""
+ 	if GAAllocation.yDim > 0 
+ 		report.appendLine(to_str("## ",rootfolder.Localization.getText(164))) -- Best parameter of the allocation problems
+ 		report.appendLine(to_str("[!",GAAllocation,", Default, *]"))
+ 		t := bestInd[3,1]-- chromosom with all allocation tasks (column in table_bestIndividuals)
+ 		for var k := 1 to t.yDim 
+ 			report.appendLine(to_str(str, self.ProtectCharacters(t[0,k]),": ",t[1,k]))
+ 		next
+ 	end
+ 	
+ 	if AssignTab.yDim > 0  -- there are sequence problem
+ 		report.appendLine(to_str("##",rootfolder.Localization.getText(165))) -- Best solutions of the sequence problems	
+ 		report.appendLine(to_str("[!",rootfolder.BasicObjects.GASequence,", Default, *]"))
+ 		if GAallocation.yDim > 0 then a := 3 else a := 2 end
+ 		for var n := 1 to AssignTab.yDim 
+ 			report.appendLine(to_str(AssignTab[1,n])) -- path of a tablefile
+ 			str := ""
+ 			t := bestInd[n+a,1] -- chromosom with sequence task
+ 			for var m := 1 to t.yDim - 1 
+ 				str := to_str(str,t[1,m],", ")
+ 			next
+ 			str := to_str(str," ",t[1, t.yDim],"<br>")
+ 			report.appendLine(str)
+ 		next-- n
+ 		
+ 	end -- there are sequence problem		
+ 	
+ 	-- problem description by GA-tables
+ 	var TaskTab:table := GAoptimization.TaskTable
+ 	var n:integer
+ 	if GAAllocation.yDim > 0 then n := 1 else n := 0 end
+ 	n := n + AssignTab.yDim -- all sequences
+ 	while n < TaskTab.yDim  -- problem description by GA-tables
+ 		n := n + 1
+ 		obj := TaskTab[1,n] -- GA-table
+ 		t := bestInd[n+2,1] -- chromosom with a task which is defined by a basic object GAtable
+ 		
+ 		switch obj.internalClassName
+ 		case "NwSequenceChromoCoding" 
+ 			report.appendLine(to_str("##",rootfolder.Localization.getText(165))) -- Best solutions of the sequence problems
+ 			report.appendLine(to_str("[!",obj,", Default, *]"))-- show the icon of the GA-table
+ 			report.appendLine(to_str(rootfolder.Localization.getText(45),": ",obj.name))-- GASequence
+ 			-- show the best solution:				
+ 			str := ""
+ 			for var m := 1 to t.yDim 
+ 				str := to_str(str,t[1,m]," ")
+ 			next
+ 			
+ 		case "NwSelectChromoCoding" 
+ 			report.appendLine(to_str("##",rootfolder.Localization.getText(165))) -- Best solutions of the sequence problems
+ 			report.appendLine(to_str("[!",obj,", Default, *]"))-- show the icon of the GA-table
+ 			report.appendLine(to_str(rootfolder.Localization.getText(46),": ",obj.name))-- GASelection
+ 			-- show the best solution:
+ 			str := ""
+ 			for var m := 1 to obj.selection 
+ 				str := to_str(str,t[1,m]," ")
+ 			next
+ 			str := to_str(str,"   (")
+ 			for var m := 1 to obj.yDim 
+ 				str := to_str(str, obj[1,m]," ")
+ 			next
+ 			str := strCopy(str,1,strLen(str)-1)
+ 			str := to_str(str,")")
+ 							
+ 		case "NwRangeAllocChromoCoding" 
+ 			report.appendLine(to_str("##",rootfolder.Localization.getText(164))) -- Best solutions of the allocation problems
+ 			report.appendLine(to_str("[!",obj,", Default, *]"))-- show the icon of the GA-table
+ 			report.appendLine(to_str(rootfolder.Localization.getText(47),": ",obj.name))-- GARangeAllocation		
+ 			-- show the best solution:	
+ 			str := ""
+ 			for var m := 1 to t.yDim 
+ 				str := to_str(str,t[1,m]," in **",t[0,m],"** = (",obj[1,m]," .. ",obj[2,m],")<br>")
+ 			next
+ 			
+ 		case "NwSetAllocChromoCoding" 
+ 			report.appendLine(to_str("##",rootfolder.Localization.getText(164))) -- Best solutions of the allocation problems
+ 			report.appendLine(to_str("[!",obj,", Default, *]")) -- show the icon of the GA-table
+ 			report.appendLine(to_str(rootfolder.Localization.getText(48),": ",obj.name))-- GASetAllocation	
+ 			-- show the best solution:
+ 			str := ""
+ 			for var m := 1 to t.yDim 
+ 				str := to_str(str,t[1,m]," in **",t[0,m],"** = {")
+ 				t1 := obj[1,m]
+ 				for var k := 1 to t1.yDim 
+ 					str := to_str(str,t1[1,k],", ")
+ 				next
+ 				str := strCopy(str,1,strLen(str)-2)
+ 				
+ 				str := to_str(str,"}<br>")
+ 			next
+ 	
+ 		end -- inspect of 'obj.internalClassName'
+ 		
+ 		report.appendLine(str)
+ 	end
+ 	-- problem description by GA-tables
+ 	report.appendLine(to_str("#",rootfolder.Localization.getText(94))) -- Evolution of the fitness values of the generations
+ 	report.appendLine("[Evolution,150,100]")-- show Chart
+ end -- if resultsBool
+ 
+ report.appendLine(to_str("#",rootfolder.Localization.getText(86)))   -- "Settings"
+ report.appendLine(to_str("## ",rootfolder.Localization.getText(116))) -- "Definition of optimization parameter"	
+ var m:integer := 2
+ 
+ obj := ProblemDefinition
+ while obj[m,0] /= void 
+ 	if obj.getDataType(m) ~= "object"  -- sequence
+ 		if obj[m,1] /= void 
+ 			report.appendLine(to_str("[",obj,",",m-1,"..",m,"]")) -- shows 2 columns
+ 		end
+ 		
+ 	else 
+ 		-- numerical parameter
+ 		report.appendLine(to_str("[",obj,",",m-1,"..",m,"]")) -- shows 2 columns
+ 	end
+ 	m := m+2
+ end
+ 
+ report.appendLine(to_str("#",rootfolder.Localization.getText(160)))-- "Settings of Genetic Algorithms"
+ obj := GAOptimization
+ 
+ report.appendLine(to_str(rootfolder.Localization.getText(95)," ",obj.direction))-- Direction of the Optimization:
+ report.appendLine(to_str(rootfolder.Localization.getText(96)," ", obj.numGenerations)) -- Number of Generations: 5
+ report.appendLine(to_str(rootfolder.Localization.getText(97)," ", obj.GenerationSize)) -- Size of Generation: 10
+ report.appendLine(to_str(rootfolder.Localization.getText(100)," ", NumRuns))-- Observations per individual: 12
+ 
+ if resultsBool 
+ 	report.appendLine(to_str("#",rootfolder.Localization.getText(101))) -- Generated individuals
+ 	report.appendLine(rootfolder.Localization.getMessage(102,numInd,"","")) -- The Genetic Algorithm generated $1 individuals.
+ 			
+ 	-- The check for duplicate individuals is only performed up to and including the third generation. OR Duplicate individuals were detected.
+ 	report.appendLine(MsgDuplicatesIndividuals) -- see ...Internal.Tools.PrepProblDef_
+ 	if dialog.numAlready > 0
+ 		report.appendLine(to_str(rootfolder.Localization.getText(121)," ",  dialog.numAlready)) -- Number of multiple generated individuals:
+ 	end
+ 	
+ 	if dialog.numPenalty > 0 
+ 		report.appendLine(to_str(rootfolder.Localization.getText(111)," ",dialog.numPenalty,"x")) -- Application of the penalty method:
+ 	else
+ 		report.appendLine(to_str(rootfolder.Localization.getText(112))) -- The penalty method was not applied.
+ 	end
+ 	m := numInd - dialog.numPenalty - dialog.numAlready -- Number of evaluated individuals
+ 	report.appendLine(to_str(rootfolder.Localization.getText(115)," ",  m))-- Number of evaluated individuals:
+ 	report.appendLine(to_str(rootfolder.Localization.getText(100)," ",numRuns))-- Observations per_individual
+ 	report.appendLine(rootfolder.Localization.getMessage(114, m * numRuns,"",""))-- Performed simulation runs
+ 	
+ 	if StatisticalEvaluation[2,1] /= void and showStatisticEval  -- Checkbox 'Prepare detailed evaluation' 
+ 		str := rootfolder.Localization.getText(104) -- Children of all generations
+ 		report.appendLine(to_str("#",str))
+ 		a := numRuns
+ 		if a > 1 
+ 			str := to_str(str," ",rootfolder.Localization.getText(105),-- with Min-Max intervals of
+ 				" ",a," ",rootfolder.Localization.getText(106)) -- observations	
+ 			report.appendLine(str) -- Children of all generations with Min-Max intervals of 12 observations
+ 		end
+ 	
+ 		a := GaOptimization.GenerationSize
+ 		b := statTab.yDim
+ 		for var d := 1 to GaOptimization.numGenerations 
+ 			if a * (2 * d - 1) <= b  -- Test: Is the entire generation evaluated?
+ 				showChildren(d)
+ 				Report.appendLine(to_str("##",rootfolder.Localization.getMessage(312,d,"",""))) -- like '4. Generation')
+ 				Report.appendLine(to_str("[",SVGofCharts,"[1,",d,"]]")) -- "<<" and ">>" is already contained
+ 			end
+ 		next
+ 	end -- if showStatisticEval (Checkbox 'Show detailed HTML report': all newly generated children)
+ 	
+ end-- if resultsBool
+ 
+ -- INFORMATION ABOUT THE MODEL
+ --report.appendLine(to_str("#",rootfolder.Localization.getText(81)));
+ --report.appendLine(to_str("##",rootfolder.Localization.getText(82))); -- The frame of the model
+ --report.appendLine(to_str("[",root,",*]")); -- scroll according Display of your monitor 
+ --report.appendLine(to_str(rootfolder.Localization.getText(373),name)); -- name of the GA Wizard	
+ --report.appendLine(to_str("Version_ ",versionStr)); -- like "Version_8.2.5"
+ 	
+ if UsingRemote 
+ 	report.appendLine(to_str("# ",rootfolder.Localization.getText(108))) -- Distributed simulation
+ 	report.appendLine(rootfolder.Localization.getText(109)) -- "Usage of remote simulation machines"
+ 	report.appendLine(to_str("[",dialog.RemoteMachines,"]"))
+ 	report.appendLine(rootfolder.Localization.getText(314)) --"An error occurred on a remote computer."
+ end
+RandomSeed: 400
+UUID: fd9c4fcd-4057-4316-acb0-a8446a87f981
+$SequenceNumber: 38
+$CustomAttributes:
+-
+ Name: ProtectCharacters
+ ID: 1
+ DataType: method
+ RandomSeed: 399
+ Value: |+1
+  -- called by: prepReport_(see index "Protect Characters")
+  -- [ object selection, - comment, hor.line, < HTML Tag
+  -- 1. title: Evaluations of the output value "alias"
+  -- 2. The p-values of the T-test of the output value "alias"
+  -- 3. Factorial analysis Output values (Results of the simulation study): Alias
+  param s:string -> string
+  
+  for var i := strlen(s) downto 1 
+  	switch strAscii(s, i)
+  	case 92,	 -- \\
+  	     35,	 -- #
+  	    -- 37,     -- %
+  	     91,	 -- [ 
+  	     93,	 -- ]
+  	     45,	 -- - 
+  	     46,	 -- .
+  	     60,	 -- <
+  	     62  -- >
+  		s := strIncl("\\\\", s, i)
+  	end
+  next
+  
+  return s

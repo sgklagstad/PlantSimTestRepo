@@ -1,0 +1,12 @@
+InternalClassType: Folder
+ChangePathCtrl:
+Coordinate3D: [2,-2,0.05]
+DestructorCtrl:
+MoveToFolderCtrl:
+Name: Fluids
+PermitDeleteCtrl:
+RenameCtrl:
+UUID: 7cfdb74b-229b-4b7b-96e5-9f9187de215e
+$SequenceNumber: 2
+3D:
+ BackgroundColor: -1

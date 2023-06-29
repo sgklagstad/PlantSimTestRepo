@@ -1,0 +1,25 @@
+InternalClassType: Method
+Coordinate3D: [25.150000000000002,-7.5500000000000007,0]
+Name: M_Quit
+Origin: e323fd22-5471-40c5-a13c-6e974c6e8831
+Program: |+1
+ -- Terminating remote process
+ -- called by: _ConnectProcess
+ 
+ var eMPlant:any := getInterfaceOfRemoteProcess(eMPlantHandle)
+ if eMPlant /= void 
+ 	eMPlant.Quit()
+ 	var RemoteMachineName:string := ~.MachinesTable[1,MachineIndex]
+ 	machTab.addLogging(to_str("End Terminating remote process on ",RemoteMachineName), JobId, MachineIndex, false)
+ end
+ emplantHandle := 0
+ ~.MachinesTable[7,MachineIndex] := 0  -- emplantHandle
+RandomSeed: 482
+UUID: 1b708ea4-28ec-4a14-bf14-ea244b2172d8
+$SequenceNumber: 5
+$CustomAttributes:
+-
+ Name: ErrorHandler
+ ID: 1
+ DataType: object
+ Value: "ErrorHandler"

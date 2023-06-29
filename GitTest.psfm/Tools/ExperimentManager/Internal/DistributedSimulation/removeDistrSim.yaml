@@ -1,0 +1,26 @@
+InternalClassType: Method
+Coordinate3D: [33,-1.85,0]
+Name: removeDistrSim
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ -- delete all instances of SimulationMachine
+ -- called by: 
+ -- 1. Start distributed simulation
+ -- 2. Testrun button (always a local experiment run with duration 1)
+ -- 3. Reset_ button
+ -- not at the end of distributed simulation (purpose debugging)
+ deleteSuspendedMethods
+ ~.rootfolder.internal.sema := false
+ 
+ var classObj:object := rootfolder.Internal.SimulationMachine
+ for var i := numNodes downto 1 
+ 	var objI:object := node(i)
+ 	if objI.class = classObj 
+ 		objI.deleteObject
+ 	end
+ next
+ 
+ MachinesTable.delete({7,1}..{18,*})	-- delete, starting with handle column
+RandomSeed: 343
+UUID: 28bf10c5-9309-45f2-b0ae-38f9a6e8d7a2
+$SequenceNumber: 4

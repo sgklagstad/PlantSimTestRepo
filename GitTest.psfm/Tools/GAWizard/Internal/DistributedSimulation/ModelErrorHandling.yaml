@@ -1,0 +1,12 @@
+InternalClassType: Variable
+Color: 16711680
+Comment: "last registered error handling method"
+Coordinate3D: [17,-0.8,0]
+DataType: object
+Font: 2
+HasInitValue: false
+Name: ModelErrorHandling
+Origin: d584890e-baf7-4aa9-b632-669f29c281f2
+UUID: c53da088-5bb3-48c5-bed0-a556622bdd51
+$SequenceNumber: 9
+Value: ""

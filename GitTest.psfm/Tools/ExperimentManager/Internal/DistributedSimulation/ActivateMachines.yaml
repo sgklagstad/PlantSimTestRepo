@@ -1,0 +1,18 @@
+InternalClassType: Method
+Coordinate3D: [22,-4.8500000000000005,0]
+Name: ActivateMachines
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ -- called by: GAwizard (evaluate))
+ var machTab:object := MachinesTable
+ 
+ for var i := 1 to MachinesTable.ydim 
+ 	var simMachine:object := machTab[17,i]
+ 	if simMachine /= void 
+ 		simMachine.JobId := -1
+ 		simMachine.&RunProcess.executeNewCallChain
+ 	end
+ next
+RandomSeed: 342
+UUID: 0d1b482c-fcda-4a7b-bd89-6e5c24e5f5fb
+$SequenceNumber: 5

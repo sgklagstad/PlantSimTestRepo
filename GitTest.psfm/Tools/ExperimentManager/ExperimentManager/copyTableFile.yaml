@@ -1,0 +1,40 @@
+InternalClassType: Method
+Coordinate3D: [62,-39,0]
+Name: copyTableFile
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ -- called by:SingleRunFinished
+ param obj:object,tab:table
+ 
+ var withColIndex:boolean := obj.ColumnIndex
+ tab.ColumnIndex := withColIndex
+ if withColIndex
+ 	tab.DataTypeColumnIndex  := obj.DataTypeColumnIndex
+ 	obj.copyRangeTo({1,0}..{*,0}, tab, 1,0)
+ end
+ 
+ var withRowIndex:boolean := obj.RowIndex
+ tab.RowIndex := withRowIndex
+ if withRowIndex
+ 	tab.setDataType(0, obj.getDataType(0))
+ 	obj.copyRangeTo({0,1}..{0,*}, tab, 0,1)
+ end
+ 
+ if withColIndex AND withRowIndex
+ 	tab[0,0] := obj[0,0]
+ end
+ 
+ var str:string
+ for var col := 1 to obj.xDim
+ 	str := obj.getDataType(col)
+ 	if str = "integer" then str := "real" end
+ 	tab.setDataType(col, str)
+ 	tab.setColumnWidth(col, obj.getColumnWidth(col))
+ next
+ 
+ obj.copyRangeTo({1,1}..{*,*}, tab, 1,1)
+RandomSeed: 217
+UUID: efeddd0f-1a3b-4745-b576-3eb802b37cf4
+$SequenceNumber: 65
+3D:
+ Mirror: [false,false,false]

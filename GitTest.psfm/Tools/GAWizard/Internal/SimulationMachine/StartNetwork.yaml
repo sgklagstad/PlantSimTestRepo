@@ -1,0 +1,11 @@
+InternalClassType: Variable
+Comment: "Eventcontroller"
+Coordinate3D: [11.850000000000001,-1.8,0]
+DataType: string
+Font: 2
+HasInitValue: false
+Name: StartNetwork
+Origin: d584890e-baf7-4aa9-b632-669f29c281f2
+UUID: 7fefae43-b726-416f-a354-d35d3cb4d886
+$SequenceNumber: 3
+Value: ""

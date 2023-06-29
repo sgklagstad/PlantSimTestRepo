@@ -1,0 +1,21 @@
+InternalClassType: Method
+Coordinate3D: [1.3499999999999996,-8,0]
+Name: reset
+Origin: e323fd22-5471-40c5-a13c-6e974c6e8831
+Program: |+1
+ if eventcontroller.DeleteMUsOnReset 
+ 	root.deleteMovables
+ end
+ if optimRuns and (NOT UsingRemote) -- and (currRunNo = 1) 
+ 	if firstreset and currRunNo = 1 
+ 		&nextIndividual.executeNewCallChain -- set the parameter of the individual
+ 	else
+ 		EventController.start --WithoutAnimation
+ 	end
+ 	if numRuns = currRunNo then
+ 		firstReset := true
+ 	end	
+ end
+RandomSeed: 412
+UUID: b16bb728-ec74-4be5-8274-14d7c06aed5f
+$SequenceNumber: 19

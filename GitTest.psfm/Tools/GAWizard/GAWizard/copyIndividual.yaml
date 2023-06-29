@@ -1,0 +1,28 @@
+InternalClassType: Method
+Coordinate3D: [6,-12,0]
+Name: copyIndividual
+Origin: e323fd22-5471-40c5-a13c-6e974c6e8831
+Program: |+1
+ -- unique ID, which is the firstly occurred individual number
+ -- called by:_alreadyEvaluated, ReadResults
+ param fromID, toID, IndividualNo:integer
+ 	
+ var StatEvalTab:object := StatisticalEvaluation
+ StatEvalTab.copyRangeTo({1,fromID}..{5, fromID}, StatEvalTab, 1,toID)
+ StatEvalTab[6,toID] := StatEvalTab[6,fromID] -- copy table of observations
+ if StatEvalTab[6,toID] /= void -- in case of reduced statistics
+ 	StatEvalTab[6,toID].name := getIndividualName(fromID) -- like "Gen 2 Ind 12"
+ end
+ 
+ --_Intermed_IntermediateResults.copyRangeTo({0,fromID}..{NumRuns, fromID}, IntermediateResults_, 0,toID)
+ 			
+ var fit:real := StatEvalTab[1,fromID]
+ individuals[2,IndividualNo]:= fit
+ dialog.numAlready := dialog.numAlready + 1
+ 
+ var indNo:integer := Dialog.readyIndividuals + 1 -- count a full evaluated_individual
+ Dialog.readyIndividuals := indNo
+ Dialog.Gawizard.setCaption("currIndivR_com",to_str(indNo))
+RandomSeed: 395
+UUID: d8e199eb-fc3f-4353-9a8a-98663eb51937
+$SequenceNumber: 52

@@ -1,0 +1,53 @@
+InternalClassType: DataTable
+Coordinate3D: [3.4000000000000004,13,0]
+Name: Action
+Origin: 6fb33eda-8c16-46cb-b4e8-ad231b2e826f
+PlausibilityCtrl: "closeAction"
+UUID: 5fa33b4f-5fd5-48e5-861f-30d2823194b6
+$SequenceNumber: 3
+$CustomAttributes:
+-
+ Name: RuleNo
+ ID: 1
+ DataType: integer
+ Value: 1
+-
+ Name: isOpen
+ ID: 2
+ DataType: boolean
+ Value: false
+$Data:
+ Comment: ~
+ ListFormat:
+  ColumnIndex: true
+  ColumnWidth: 20
+  DataType: string
+  MaxXDim: 4
+  ShowDataType: true
+  ColumnFormat:
+  -
+   Index: 1
+   DataType: object
+   Width: 16
+  -
+   Index: 2
+   Width: 9
+  -
+   Index: 3
+   FontSize: 1
+   FontColor: 0xff
+   Alignment: "Center"
+   DataType: string
+   FormatString: "+;-;+%;-%;="
+   Width: 7
+  -
+   Index: 4
+   DataType: real
+   FormatString: "-15.2"
+   Width: 7
+  RowFormat:
+  -
+   Index: 0
+   Hidden: false
+ ColumnIndex: [string,5,~,"Object","Attribute","Operator","Value"]
+ Columns:

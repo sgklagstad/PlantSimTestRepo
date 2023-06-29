@@ -1,0 +1,84 @@
+InternalClassType: DataTable
+Coordinate3D: [56.150000000000006,-11.7,0]
+Name: SVGofCharts
+Origin: 6fb33eda-8c16-46cb-b4e8-ad231b2e826f
+UUID: 710abba1-1a08-49f9-af9e-a2c2e2c40e54
+$SequenceNumber: 76
+$CustomAttributes:
+-
+ Name: removeSVGtables
+ ID: 1
+ DataType: method
+ RandomSeed: 203
+ Value: |+1
+  var tab:table := self.~.tmpTables
+  for var j := tab.yDim downto 1 
+  	if tab[1,j] /= void 
+  		tab[1,j].deleteObject
+  	end
+  next
+  tab.delete
+
+-
+ Name: tmpTables
+ ID: 2
+ DataType: table
+ Value:
+  Comment: ~
+  CommonFormat: false
+  ListFormat:
+   ColumnIndex: true
+   ColumnWidth: 20
+   DataType: string
+   RowIndex: true
+   ShowDataType: true
+   ColumnFormat:
+   -
+    Index: 0
+    Hidden: false
+   -
+    Index: 1
+    DataType: object
+   RowFormat:
+   -
+    Index: 0
+    Hidden: false
+  ColumnIndex: [string,2,~,"tablefile SVGofChart<No>"]
+  Columns:
+  - [0,string,2,"Observation 2","Observation 3"]
+-
+ Name: prepareTables
+ ID: 3
+ DataType: method
+ RandomSeed: 202
+ Value: |+1
+  -- called by: Start (if Charts4AllObservations = true AND numRuns > 1) 
+  var TabTemplate:object := self.~
+  var tmpTab:table := TabTemplate.tmpTables
+  var tabObj:object
+  for var j := 1 to numRuns - 1 
+  	tabObj := TabTemplate.duplicate(current)
+  	tabObj.Coordinate3D := makeArray(62 + 5 * j, -12,0.0) -- [67m, -12m, 0m] [72m, -12m, 0m]
+  	--tabObj.name := to_str("SVGofCharts",j)
+  	tmpTab[1,j]  := makePathRelative(tabObj,current)
+  next
+$Data:
+ ListFormat:
+  ColumnIndex: true
+  ColumnIndexContents: false
+  ColumnWidth: 20
+  DataType: string
+  RowIndex: true
+  ShowDataType: true
+  RowFormat:
+  -
+   Index: 0
+   Hidden: false
+  CellFormat:
+  -
+   Index: 1
+   Rows:
+   -
+    Index: 3
+    FontColor: 0x0
+ Columns:

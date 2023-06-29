@@ -1,0 +1,12 @@
+InternalClassType: Folder
+ChangePathCtrl:
+Coordinate3D: [2,-3,0.05]
+DestructorCtrl:
+MoveToFolderCtrl:
+Name: Resources
+PermitDeleteCtrl:
+RenameCtrl:
+UUID: 43747879-eb75-47bc-b9fe-becaa23b2479
+$SequenceNumber: 3
+3D:
+ BackgroundColor: -1

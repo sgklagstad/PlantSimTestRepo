@@ -1,0 +1,119 @@
+InternalClassType: Method
+Coordinate3D: [-14,7,0]
+Name: changeUserSettings
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ -- called by: non-distributed simulation:
+ -- EndOfAllExperiments with "restore", Start (button) with "read_", Reset (button) with "restore"
+ -- val = "read_" read_and store the current settings
+ -- val = "restore" restore the settings before the experiment run
+ 
+ param val:string -- "read_" or "restore"
+ 
+ switch strToLower(val)
+ case "read"  -- method "Start" (twice: stopped or new run)
+ 	self.setting_resetInitBox := resetInitBox(false)
+ 	self.setting_animMU := animation(false)
+ 
+ 	if NOT ~.simulateWithAnimation
+ 		animation(false)
+ 	end
+ 
+ 	if EventController /=void
+ 		self.setting_Realtime := EventController.Realtime
+ 		self.setting_RandomNumbersVariant := EventController.RandomNumbersVariant
+ 		self.setting_simSpeed := eventController.speed
+ 		self.setting_IncrRNVariant := EventController.IncrementRandomNumbersVariantOnReset
+ 		self.setting_SummaryReport := EventController.SummaryReport
+ 	end
+ 
+ 	EventController.speed := 100
+ 	EventController.Realtime := false
+ 	EventController.IncrementRandomNumbersVariantOnReset := false
+ 	EventController.SummaryReport := false
+ 
+ 	if NOT ~.UsingRemote -- non-distributed simulation
+ 		var stopOnErrors, stopOnFormularErrors: boolean;
+ 		getErrorStop(stopOnErrors, stopOnFormularErrors)
+ 		if stopOnErrors -- Ribbons Debugger > "Ignore Errors" is inacitive
+ 			~.ModelErrorHandling := setErrorHandler(~.&ErrorHandling)
+ 			-- The function setErrorHandler returns the last registered error handling method.
+ 			-- treatment of errors in SimTalk by the global error handling of the remote process.
+ 		end
+ 	end
+ 
+ case "restore"  -- method "Start" (distributed simulation before saving the model)
+ 
+   resetInitBox(self.setting_resetInitBox)
+   animation(self.setting_animMU)
+ 
+ 	if EventController /=void
+ 		EventController.SummaryReport := self.setting_SummaryReport
+ 		EventController.Realtime := self.setting_Realtime
+ 		eventController.speed := self.setting_simSpeed
+ 		eventController.IncrementRandomNumbersVariantOnReset := self.setting_IncrRNVariant
+ 		if strLen(~.UserSeedValueMethod) = 0
+ 			EventController.RandomNumbersVariant := self.setting_RandomNumbersVariant
+ 		end
+ 	end
+ 
+ 	if NOT ~.UsingRemote -- non-distributed simulation
+ 		getErrorStop(stopOnErrors, stopOnFormularErrors) -- declaration see case "read"
+ 		if ~.ModelErrorHandling /= void
+ 			if ~.ModelErrorHandling /= ~.&ErrorHandling
+ 				setErrorHandler(~.&ModelErrorHandling)
+ 			else
+ 				setErrorHandler(void)
+ 			end
+ 			~.ModelErrorHandling := void
+ 			-- The function setErrorHandler returns the last registered error handling method.
+ 			-- treatment of errors in SimTalk by the global error handling of the remote process.
+ 		end
+ 	end
+ end
+RandomSeed: 315
+UUID: cfbe58a1-e81b-4cb7-a16b-e8e9fa16e74e
+$SequenceNumber: 15
+3D:
+ Mirror: [false,false,false]
+$CustomAttributes:
+-
+ Name: setting_resetInitBox
+ ID: 1
+ DataType: boolean
+ Value: true
+-
+ Name: setting_Realtime
+ ID: 2
+ DataType: boolean
+ Value: false
+-
+ Name: setting_RandomNumbersVariant
+ ID: 3
+ DataType: integer
+ Value: 0
+-
+ Name: setting_simSpeed
+ ID: 4
+ DataType: integer
+ Value: 100
+-
+ Name: setting_IncrRNVariant
+ ID: 5
+ DataType: boolean
+ Value: false
+-
+ Name: setting_SummaryReport
+ ID: 6
+ DataType: boolean
+ Value: true
+-
+ Name: setting_animMU
+ ID: 7
+ DataType: boolean
+ Value: false
+-
+ Name: setting_animIcon
+ ID: 8
+ DataType: boolean
+ Value: false

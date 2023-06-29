@@ -1,0 +1,12 @@
+InternalClassType: Folder
+ChangePathCtrl:
+Coordinate3D: [0,0,0]
+DestructorCtrl:
+MoveToFolderCtrl:
+Name: InformationFlow
+PermitDeleteCtrl:
+RenameCtrl:
+UUID: 5274cf99-13d8-4622-8b8c-dcc275907510
+$SequenceNumber: 1
+3D:
+ BackgroundColor: -1

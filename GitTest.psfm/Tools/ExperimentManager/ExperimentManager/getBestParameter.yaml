@@ -1,0 +1,60 @@
+InternalClassType: Method
+Coordinate3D: [35.45,-34.65,0]
+Name: getBestParameter
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ param BestRes:any, OutputName:string, HighBetter:boolean, showOutputValues:boolean := false
+ 
+ if isTable(BestRes) or (isObject(BestRes) and BestRes /= void and BestRes.InternalClassType = "DataTable")
+ 
+ 	var colOutput:integer := Results.getColumnNo(OutputName)
+ 	if colOutput < 0
+ 		print "Output value \\"",OutputName,"\\" is unknown."
+ 		return
+ 	end
+ 	Results.copyFormatTo(BestRes)
+ 	BestRes.delete({0,1}..{*,*})
+ 	var numInput:integer  := Input.yDim
+ 	if not showOutputValues
+ 		BestRes.delete({0,numInput + 1}..{*,*})
+ 	end
+ 	BestRes[0,0] := rootfolder.Localization.getText(103) -- Experimente
+ 
+ 	var bestValue:any
+ 	if HighBetter -- search max
+ 		bestValue := Results.max({colOutput,1}..{colOutput,*})
+ 	else -- search min
+ 		bestValue := Results.min({colOutput,1}..{colOutput,*})
+ 	end
+ 	--var approxBestValue := bestValue
+ 	--approxBestValue := when ResultsPrecision > 0 then round(bestValue,ResultsPrecision) else bestValue
+ 	var numBest:integer
+ 	for var ExpNo := 1 to Results.yDim
+ 		--var approxCurrValue := Results[colOutput,ExpNo]
+ 		--approxCurrValue := when ResultsPrecision > 0 then round(approxCurrValue,ResultsPrecision) else approxCurrValue
+ 		if (NOT Results[colOutput,ExpNo].void) AND bestValue ~= Results[colOutput,ExpNo]
+ 			numBest += 1
+ 			if showOutputValues
+ 				Results.copyRangeTo({0,ExpNo}..{*,ExpNo}, BestRes, 0,numBest)
+ 			else
+ 				Results.copyRangeTo({0,ExpNo}..{numInput,ExpNo}, BestRes, 0,numBest)
+ 				BestRes.maxXdim := numInput
+ 			end
+ 		end
+ 	next
+ 
+ 	BestRes.showComment := true
+ 	if HighBetter -- The maximum of the output value
+ 		BestRes.comment := rootfolder.Localization.getMessage(437,OutputName, when ResultsPrecision > 0 then round(bestValue,ResultsPrecision) else bestValue,"")
+ 	else -- -- The minimum of the output value
+ 		BestRes.comment := rootfolder.Localization.getMessage(438,OutputName, when ResultsPrecision > 0 then round(bestValue,ResultsPrecision) else bestValue,"")
+ 	end
+ 
+ else
+ 		print "The first parameter of the method getBestParameter must be a table."
+ end
+RandomSeed: 173
+UUID: 2afeb9e0-ec85-4655-b4c0-567d3af57b27
+$SequenceNumber: 104
+3D:
+ Mirror: [false,false,false]

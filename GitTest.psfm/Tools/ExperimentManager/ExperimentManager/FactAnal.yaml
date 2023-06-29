@@ -1,0 +1,34 @@
+InternalClassType: Method
+Coordinate3D: [55,-26,0]
+Name: FactAnal
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ -- called only by the menu: "Analysis of factors"
+ -- the calculation is done in the method 'EndOfAllExperiments'
+ if Design4FactorialAnalysis AND DetailedResults.ydim /= pow(2,Input.yDim) 
+ 	-- No 2-level experimental design for the factorial design was defined.
+ 	messageBox(Rootfolder.Localization.getText(334),1,1) -- error
+ 	return
+ end
+ 
+ Design.selectResultValue -- The attribute factorDesignValue is set.
+ 
+ if Design4FactorialAnalysis AND strLen(factorDesignValue) > 0
+ 	FactorialAnalysis(factorDesignValue)
+ 
+ 	var effTab:object := Effects
+ /*  Results of the Factorial design for the selected result value:
+ 	H1,... = Main effects: Average change due to moving the factor from the lower to the upper level.
+ 	W12,... = Interaction effects: Average change due to simultaneously moving of 2 factor.
+ 	*/
+ 	effTab.comment := to_str(Rootfolder.Localization.getText(331)," ",ValueDescriptions.get(factorDesignValue), strChr(13),strChr(10),
+ 		Rootfolder.Localization.getText(332),strChr(13),strChr(10),
+ 		Rootfolder.Localization.getText(333))
+ 	
+ 	effTab.openDialogBox(true)
+ end
+RandomSeed: 234
+UUID: f0f0459d-78da-4743-92cd-593d6b6eca5a
+$SequenceNumber: 55
+3D:
+ Mirror: [false,false,false]

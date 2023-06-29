@@ -1,0 +1,44 @@
+InternalClassType: Chart
+ChartType: "Line"
+CloseCtrl: "RootFolder.Internal.Tools.CloseChart"
+CollectData: true
+Coordinate3D: [22,-17.35,0]
+DataInColumn: true
+DataTable: "EvolutionTab"
+Effect: "(None)"
+Label: "Evolution"
+LegendLocation: "Right"
+Name: Evolution
+Origin: 9047b0a8-681b-4604-a5d0-e9424485f3ba
+Title: "Performance Graph"
+UseInputChannels: false
+UUID: e2f99694-e0d2-489c-8eec-9c6afa1e15bc
+XGrid: false
+XGridLines: 25
+XLabel: "Generation"
+YGrid: false
+YGridLineInterval: 0
+YLabel: "Fitness"
+$SequenceNumber: 43
+$CustomAttributes:
+-
+ Name: isOpen
+ ID: 1
+ DataType: boolean
+ Value: true
+$Annotations:
+$Colors:
+- 0x0
+- 0xffffff
+- 0xffffff
+- 0x0
+- [0xff,0,3]
+- [0xee00,0,5]
+- [0xff0000,0,7]
+- [0xe8f8,0,2]
+- [0xffee00,0,2]
+- [0xff00ff,0,2]
+- [0xee00cc,0,2]
+- [0xddff,0,2]
+- [0xff,0,2]
+$WindowRect: [520,348,651,307]

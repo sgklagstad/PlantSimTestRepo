@@ -1,0 +1,11 @@
+InternalClassType: EventController
+Coordinate3D: [1,-1,0]
+Date: 2023-1-2 6:00:00
+LongEventInterval: 10
+Origin: f67178c2-6446-4283-bee9-8ea7c657892e
+RandomNumbersVariant: 1
+Realtime: true
+RealtimeScale: 3
+SkipLongEventIntervals: true
+UUID: 641d2040-fed0-4ea8-b545-03a6d0e20e99
+$SequenceNumber: 1

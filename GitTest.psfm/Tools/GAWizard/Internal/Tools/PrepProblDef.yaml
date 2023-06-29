@@ -1,0 +1,295 @@
+InternalClassType: Method
+Coordinate3D: [2,-4,0]
+Name: PrepProblDef
+Origin: e323fd22-5471-40c5-a13c-6e974c6e8831
+Program: |+1
+ -- register table objects and attributes for optimization
+ -- called by: Drag & Drop interaction, Apply_in the dialog, plausibility of table 'ProblemDefinition_'
+ param Problem:object
+ 
+ var GA_Allocation,seqTab,GAobj:object;var j,k,numParam,numVal,col:integer
+ var str,s,absPath:string;var t:table;var r:real;var a:any
+ var t1, t2, s1, s2 : real -- measure the CPU time
+ var AppObj:object := Problem.~
+ var AssignTab:table := AppObj.seqLoc.Assignments
+ 
+ for j := AppObj.SeqLoc.numNodes downto 1
+ 	GAobj := AppObj.SeqLoc.node(j)
+ 	AssignTab.setCursor(2,1)
+ 	if NOT AssignTab.find({2,1}..{2,*},GAobj)
+ 		GAobj.deleteObject
+ 	end
+ next
+ 
+ k := 1
+ while k <= AssignTab.yDim
+ 	seqTab := AssignTab[1,k]
+ 
+ 	if seqTab = void
+ 		AssignTab.cutRow(k)
+ 	else
+ 		Problem.setCursor(2,1)
+ 		if NOT Problem.find({2,1}..{*,1}, seqTab)
+ 			AssignTab.cutRow(k)
+ 		else
+ 			col := AssignTab[3,k]
+ 			if col > 0
+ 				seqTab.sort(col,"up") -- restore the original order
+ 				seqTab.cutColumn(col) -- the _GAwizard added these columns
+ 				seqTab.cutColumn(col)
+ 			end
+ 			k := k + 1
+ 		end
+ 
+ 	end
+ end-- while next k (row of table Assignments)
+ 
+ GA_Allocation := AppObj.GaAllocation
+ GA_Allocation.delete({0,1}..{*,*})
+ 
+ k:=2
+ while strLen(Problem[k,0])>0 OR k <= Problem.xDim  -- all parameter
+ 	while strLpos(":",Problem[k,0])>0  -- recognize the string "Parameter:", the user deleted a column
+ 		Problem.cutColumn(k)
+ 	end
+ 	str := Problem[k,0]
+ 
+ 	if strLen(str) < 1  -- if find deleted item
+ 		Problem.cutColumn(k-1)
+ 		Problem.cutColumn(k-1)
+ 	else
+ 		str := AppObj.insRootStr(str,to_str(AppObj.rootframe)) -- AppObj.rootframe
+ 		Problem[k,0] := str
+ 		if strLpos(".",str) = 1
+ 			absPath := str
+ 		else
+ 			absPath := to_str(to_str(AppObj.rootframe),".",strOmit(str,1,5))
+ 		end
+ 		seqTab := absPath
+ 		if seqTab/=void AND seqTab.internalClassName = "NwList2D"  -- recognize the table to be arranged
+ 			AssignTab.setCursor(1,1)
+ 			if AssignTab.find({1,1}..{1,*}, seqTab)
+ 				j := AssignTab.cursorY
+ 				GAobj := AssignTab[2,j]
+ 			else
+ 				j := AssignTab.yDim + 1
+ 				AssignTab[1,j] := seqTab
+ 			end
+ 			if GAobj = void
+ 				GAobj := rootfolder.BasicObjects.GASequence.duplicate(AppObj.seqLoc)
+ 				GAobj.xpos := 50+70*j
+ 				GAobj.ypos := 50
+ 				AssignTab[2,j] := GAobj -- needed in method '_setUserParam'
+ 			end
+ 			Problem[k,0] := str; Problem.setDataType(k,"object")
+ 			Problem[k,1] := str
+ 			-- delete columns "Orig" and "Chrom", if such columns exist
+ 
+ 			if AssignTab[3,j] > 0
+ 				col := AssignTab[3,j] -- first used column by the_GAwizard
+ 				seqTab.cutColumn(col) -- the_GAwizard added these columns
+ 				seqTab.cutColumn(col)
+ 			end
+ 			-- find the first non-used column:
+ 			col := seqTab.xdim
+ 			if seqTab.ColumnIndex
+ 				col := max(col,seqTab.XdimIndex)
+ 			end
+ 			col := max(col,seqTab.maxXdim + 1)
+ 			seqTab.maxXdim := -1 -- store 'maxXdim'
+ 			col := col + 1
+ 			AssignTab[3,j] := col
+ 
+ 			-- prepare the table 'seqTab' to be arranged:
+ 			if seqTab.ColumnIndex AND seqTab.DataTypeColumnIndex = "string"
+ 				seqTab.writeRow(col,0, "Orig","Chrom")-- not used as ColumnIndex
+ 			end
+ 			seqTab.setDataType(col,  "integer"); seqTab.setColumnWidth(col,  5)
+ 			seqTab.setDataType(col+1,"integer"); seqTab.setColumnWidth(col+1,5)
+ 			-- in table 'ProblemDefinition_'
+ 			Problem[k-1,1] := rootfolder.Localization.getText(67)--"Sequence of";
+ 			Problem[k-1,2] := to_str(seqTab.yDim," ",rootfolder.Localization.getText(68))--"Elements"
+ 			Problem.delete({k-1,3}..{k-1,*})
+ 
+ 			-- fill the corresponding GAsequence (GAobj) and prepare the table to be arranged (seqTab):
+ 			GAobj.delete
+ 			--GAobj.initRate := min(50,ceil(100/AppObj.GAOptimization.generationSize)) -- otherwise the optimization is not reproducible
+ 			seqTab.delete({col,1}..{col+1,*})
+ 			for j := 1 to seqTab.yDim
+ 				GAobj[1,j] := j
+ 				GAobj[3,j] := j
+ 				seqTab.writeRow(col,j, j,j) -- original and the generated sequence
+ 			next
+ 			k:=k+2
+ 		else -- else: not a table
+ 			s := AppObj.recogDataType(str)
+ 			if s = "Not allowed"
+ 				--"The object does not have the selected attribute:"
+ 				messageBox(to_str(rootfolder.Localization.getText(31),strChr(10),str),1,1) -- error
+ 				Problem.cutColumn(k-1)
+ 				Problem.cutColumn(k-1)
+ 			elseif s = "list"
+ 
+ 			else -- valid data type
+ 				Problem.setDataType(k,s)
+ 				Problem.setEditorRightsColumn(k-1,true)
+ 				Problem.setEditorRightsCells({k-1,0}..{k-1,0},true);Problem[k-1,0] := "Parameter:"
+ 				Problem.setEditorRightsCells({k+1,0}..{k+1,0},true);Problem[k+1,0] := "Parameter:"
+ 				Problem.setColumnWidth(k-1,10)
+ 				Problem.setCursor(k+1,0)
+ 				if Problem.find({k+1,0}..{*,0}, str)
+ 					-- The attribute "...." is already registered.
+ 					messageBox(to_str(rootfolder.Localization.getText(32),strChr(10),str),1,4) -- info
+ 					Problem.cutColumn(k-1)
+ 					Problem.cutColumn(k-1)
+ 				else -- unique entry
+ 					numParam := numParam + 1
+ 					GA_Allocation[0,numParam] := Problem[k,0]-- attribute string
+ 					GA_Allocation.createNestedList(1,numParam)
+ 					t := GA_Allocation[1,numParam] -- table with allocation sets
+ 
+ 					switch s -- inspect all possible datatypes
+ 					case "integer","real","time","length","speed","weight","acceleration"
+ 						if Problem[k,1] = void
+ 							if s = "time"
+ 								Problem[k,1] := 60 -- 1 min .. 5 min
+ 								Problem[k,2] := 300
+ 								Problem[k,3] := 60
+ 							else
+ 								Problem[k,1] := 1
+ 								Problem[k,2] := 5
+ 								Problem[k,3] := 1
+ 							end
+ 						end
+ 
+ 						var withIncrement:boolean := (Problem[k,3] > 0) AND (Problem[k,2] - Problem[k,1] >= Problem[k,3])
+ 						--withIncrement := (Problem[k,3]/=void) AND (Problem[k,2] > Problem[k,3])
+ 						if withIncrement
+ 							Problem[k-1,1] := rootfolder.Localization.getText(62)--"Lower bound";
+ 							Problem[k-1,2] := rootfolder.Localization.getText(63)--"Upper bound";
+ 							Problem[k-1,3] := rootfolder.Localization.getText(64)--"Increment";
+ 							-- Problem.delete({k-1,4}..{k-1,*})
+ 						else
+ 							j:=1
+ 							while Problem[k,j]/=void
+ 								Problem[k-1,j] := to_str("Element ",j)
+ 								j:=j+1
+ 							end
+ 							Problem.delete({k-1,j}..{k-1,*})
+ 						end
+ 						-- numeric values
+ 						-- measure the CPU time
+ 
+ 						if withIncrement -- steps
+ 							t1 := getHighResolutionClock  ----------------------------------
+ 							numVal := 0
+ 							r := Problem[k,1]
+ 							var k2 : any
+ 							var k3 : any
+ 
+ 							forget k2
+ 							k2 := Problem[k,2]
+ 							forget k3
+ 							k3:= Problem[k,3]
+ 
+ 							repeat -- table with allocation sets (t = subtable in GAtable "GAAllocation")
+ 								numVal += 1
+ 								t[1,numVal] := to_str(r)
+ 								r += k3
+ 							until r > k2
+ 
+ 							t2 := getHighResolutionClock  ----------------------------------
+ 							s1 += t2 - t1
+ 							-- print "S:  ", s1, "   ", s2;  -- measure the CPU time
+ 						else
+ 							numVal := 1
+ 							repeat -- table with allocation sets (t = subtable in GAtable "GAAllocation")
+ 								t[1,t.ydim + 1] := to_str(Problem[k,numVal])
+ 								numVal := numVal + 1
+ 							until Problem[k,numVal]=void
+ 						end
+ 
+ 					case "boolean"
+ 						Problem[k-1,1] := "Element 1"
+ 						Problem[k-1,2] := "Element 2"
+ 						if Problem[k,1] = void
+ 							Problem[k,1] := false
+ 							Problem[k,2] := true
+ 						end
+ 						Problem.delete({k-1,3}..{k-1,*})
+ 						numVal := 1
+ 						repeat -- table with allocation sets (t = subtable in GAtable "GAAllocation")
+ 							t[1,t.ydim + 1] := to_str(Problem[k,numVal])
+ 							numVal := numVal + 1
+ 						until Problem[k,numVal]=void
+ 						numVal := numVal - 1
+ 
+ 					else -- "string"
+ 						if Problem[k,1]=void
+ 							Problem[k,1] := "A"
+ 						end
+ 						if Problem[k,2]=void
+ 							Problem[k,2] := "B"
+ 						end
+ 						j:=1
+ 						while Problem[k,j]/=void
+ 							Problem[k-1,j] := to_str("Element ",j)
+ 							j += 1
+ 						end
+ 						Problem.delete({k-1,j}..{k-1,*})
+ 						numVal := 1
+ 						repeat -- table with allocation sets (t = subtable in GAtable "GAAllocation")
+ 							t[1,t.ydim + 1] := to_str(Problem[k,numVal])
+ 							numVal += 1
+ 						until Problem[k,numVal]=void
+ 						numVal -= 1
+ 					end-- inspect all possible datatypes
+ 					GA_Allocation[1,numParam].Name:=to_str(numVal,rootfolder.Localization.getText(34))
+ 
+ 					-- use the parameter in the model as initial solutions
+ 					-- (25 % of the individuals of the first generation)
+ 					s := to_str("-> any return ",absPath)
+ 					a := executeSilent(s)
+ 					if isTime(a)
+ 						r := a; s := to_str(r)
+ 					else
+ 						s := to_str(a)
+ 					end
+ 					forget a
+ 					t.setCursor(1,1)
+ 					if t.find({1,1}..{1,*},s)
+ 						GA_Allocation[2,numParam] := s
+ 					else
+ 						t.setCursor(1,1)
+ 						t.findFloor({1,1}..{1,*},s)
+ 						GA_Allocation[2,numParam] := t[1, t.cursorY]
+ 					end
+ 					k:=k+2 -- next entry in the table "Problem"
+ 				end-- unique entry
+ 			end -- valid data type
+ 		end -- else: not a table
+ 	end  -- else find delete item
+ end -- all parameter
+ 
+ rootfolder.internal.tools.formatProblemlDefinition(Problem)
+ 
+ -- determine_lastGeneration4DuplicatesCheck (integer) 321 322
+ -- check for duplicates: 50 000 >= Generationsize * (2 * numGenerations - 1)
+ -- GAobj.numGenerations = round(25 000/Generationsize)
+ 
+ var maxGen:integer := AppObj.lastGeneration4DuplicatesCheck
+ if maxGen = 0 or maxGen < -1
+ 	print maxGen," is not a reasonable value for lastGeneration4DuplicatesCheck."
+ 	AppObj.lastGeneration4DuplicatesCheck := -1
+ 	maxGen := -1
+ end
+ 
+ if maxGen = -1
+ 	AppObj.MsgDuplicatesIndividuals := rootfolder.Localization.getText(321) -- The search for equal individuals is performed.
+ else
+ 	AppObj.MsgDuplicatesIndividuals := rootfolder.Localization.getMessage(322,maxGen,"","") -- The search for equal individuals is only performed up to generation $1.
+ end
+ print AppObj.MsgDuplicatesIndividuals -- used in the Report: The search for equal individuals ...
+RandomSeed: 497
+UUID: 850865c2-8679-458f-838b-8267f0693562
+$SequenceNumber: 5

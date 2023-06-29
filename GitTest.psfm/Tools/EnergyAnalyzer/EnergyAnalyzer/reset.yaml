@@ -1,0 +1,34 @@
+InternalClassType: Method
+Coordinate3D: [-10,13,0]
+Name: reset
+Origin: bfb587fc-0502-4fe7-ad40-70d6ebe4fceb
+Program: |+1
+ -- remove observer of all object with activated energy simulation
+ -- also of objects which are not selected by the user
+ delVisualize -- like the button 'Remove' visualization
+ prepareObserver(false) -- remove observer
+  
+ --EnergyConsumers.setBackgroundColorCells({0,1}..{*,*},makeRGBValue(255,255,255))
+ EnergyConsumers.delete -- do not delete the selected objects
+ 
+ UsageProfile.UtilizationTable.delete
+ UsageProfile.UtilizationTable[1,6] := 0
+    
+ Consumption := 0
+ ConsumptionOperational := 0
+ powerConsumption := 0
+ maxPowerConsumption := 0
+ PeakTime := 0
+ 
+ refEnergy.value := ""
+    
+ &observeEnergyState.InfoWasGiven := false
+ 
+ if numPlottedValues > 999 AND numPlottedValues < 100001 
+ 	Plotter.numValues := numPlottedValues
+ else
+ 	numPlottedValues := 10000 -- default value
+ end
+RandomSeed: 57
+UUID: a3bc10fb-d422-4bc3-9029-7e7d1958369c
+$SequenceNumber: 4

@@ -1,0 +1,33 @@
+InternalClassType: Method
+Coordinate3D: [16,-10,0]
+Name: CB_AddAddress
+Origin: e323fd22-5471-40c5-a13c-6e974c6e8831
+Program: |+1
+ -- adds a line to the remotes list, before current selected one
+ -- called by: "DistrSim_CB" in case of (RemoteTable.yDim = 0)
+ param DLG:object,CompName:string,numProc:integer,useAllCores:boolean
+ 
+ var j : integer; var str : string
+ 
+ var sel : integer := GAwizard.getIndex("RemotesList")
+ if sel>0 AND strLen(GAwizard.getValue("RemotesList")) < 2 
+ 	RemoteTable.cutRow(sel)
+ end
+ 
+ RemoteTable.setCursor(1,1)
+ if RemoteTable.find({1,1}..{1,*},CompName) 
+ 	sel := RemoteTable.cursorY
+ else
+ 	sel := max(1,sel)
+ 	RemoteTable.insertRow(sel)
+ end
+ if useAllCores 
+ 	numProc := getNumberOfCPUCores
+ end
+ RemoteTable.writeRow(1,sel, CompName, numProc,useAllCores)
+ 
+ RemoteTable.setRemoteInDialog -- makes GAwizard.setList("RemotesList",RemoteList)
+ ~.DistributedSimulation.updateMachinesTable(RemoteTable)
+RandomSeed: 448
+UUID: 552318e2-805b-46b8-800b-4a0d75fc7c8e
+$SequenceNumber: 9

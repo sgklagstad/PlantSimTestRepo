@@ -1,0 +1,11 @@
+InternalClassType: Variable
+Comment: "Attention: only used when using rules!!!"
+Coordinate3D: [44.75,-39.85,0]
+DataType: integer
+Font: 2
+Name: NumRulesExp
+Origin: 0f4944c4-4bd7-4f29-b98e-746708247c83
+ShowDataType: false
+UUID: 8aedc0cf-31cc-4748-96db-4bc19c7daebf
+$SequenceNumber: 19
+Value: 1

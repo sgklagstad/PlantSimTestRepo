@@ -1,0 +1,21 @@
+InternalClassType: Toolbar
+ChangePathCtrl:
+ConstructorCtrl:
+DestructorCtrl:
+Label: "Fluids"
+MoveToFolderCtrl:
+Name: Toolbar
+UUID: e9b6133d-3d03-4ac9-a2c7-c8b4747a18aa
+Visible: true
+$SequenceNumber: 4294967295
+$Objects:
+- a06716e4-e2d2-4d9f-91d2-1a38b8161bf7
+- a027a570-e385-4a82-a15b-0575dbec4668
+- 9f004a80-6486-482a-aa9e-38635781d91f
+- ca4d90f3-cb3c-4210-8b00-e12ca1d8e18b
+- 5eb94921-a4f5-4349-b5a0-17e4f528ebba
+- bfd02611-87ae-4956-a5af-c88cea169d35
+- 13d6d4c6-556b-4b24-990f-42a4ffaceb7b
+- 9f51e4c9-ed50-40c4-86c9-228a90e2df11
+- a80b5216-3882-44f4-b4a1-537b34ed9630
+- af3381ac-6b1a-4ec7-9135-1906e17b9d93

@@ -1,0 +1,59 @@
+InternalClassType: DataTable
+Coordinate3D: [-7,14,0]
+Name: RemoteTable
+Origin: 6fb33eda-8c16-46cb-b4e8-ad231b2e826f
+UUID: 9a4ebbe6-ca17-495f-b9e1-be8d4bcd47c8
+$SequenceNumber: 16
+$CustomAttributes:
+-
+ Name: setRemoteInDialog
+ ID: 1
+ DataType: method
+ RandomSeed: 314
+ Value: |+1
+  var tab:object := self.~ -- tablefile 'RemoteTable'
+  -- update the dialog
+  var lst:list[string]
+  lst.create
+  for var j := RemoteTable.ydim downto 1 
+  	if RemoteTable[3,j] 
+  		lst.insert(1, to_str(tab[1,j]," (n)"))
+  	else
+  		lst.insert(1, to_str(tab[1,j]," (",tab[2,j],")"))
+  	end
+  next
+  if lst.dim=0 
+  	lst.insert(1, " ")
+  end
+  
+  AdvancedSettings.setList("RemotesList",lst)
+$Data:
+ ListFormat:
+  ColumnIndex: true
+  ColumnWidth: 20
+  DataType: string
+  ShowDataType: true
+  ColumnFormat:
+  -
+   Index: 0
+   Hidden: false
+  -
+   Index: 1
+   Width: 10
+  -
+   Index: 2
+   Alignment: "Right"
+   DataType: integer
+   Width: 11
+  -
+   Index: 3
+   DataType: boolean
+   FormatString: "AAAAA"
+   Width: 14
+  RowFormat:
+  -
+   Index: 0
+   Alignment: "Center"
+   Hidden: false
+ ColumnIndex: [string,4,~,"Comp Name","Num Processes","Use all cores"]
+ Columns:

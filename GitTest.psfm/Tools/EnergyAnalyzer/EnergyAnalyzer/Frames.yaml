@@ -1,0 +1,82 @@
+InternalClassType: DataTable
+Coordinate3D: [-4,7,0]
+Name: Frames
+Origin: fc64ab66-ce49-4a30-9896-4a6222a57842
+UUID: 546f5d51-c76d-42f6-884c-63e9cde7e4f7
+$SequenceNumber: 22
+$CustomAttributes:
+-
+ Name: tooltip
+ ID: 1
+ DataType: string
+ Value: "all frames containing a given basic object"
+-
+ Name: reg
+ ID: 2
+ DataType: method
+ RandomSeed: 36
+ Value: |+1
+  var frameTab:object := self.~
+  frameTab.delete({0,1}..{*,*})
+  Objects.copyrangeTo({1,1}..{1,*}, frameTab,0,1)
+  var basicObj:object
+  var relPath:string
+  for var objNo := 1 to Objects.yDim 
+  	relPath := Objects[1,objNo]
+  	basicObj := to_str(~,".",relPath)
+  	frameTab[0,objNo] := relPath
+  	frameTab.createNestedList(1,objNo)
+  	frameTab[1,objNo].name := basicObj.internalClassName
+  	
+  	--debug;
+  next
+  
+
+$Data:
+ Comment: ~
+ ListFormat:
+  ColumnIndex: true
+  ColumnWidth: 50
+  DataType: string
+  MaxXDim: 1
+  RowIndex: true
+  ShowDataType: true
+  ColumnFormat:
+  -
+   Index: 0
+   Hidden: false
+   Width: 20
+  -
+   Index: 1
+   Alignment: "Center"
+   DataType: table
+   Prototype:
+    EditorPermissions: 12
+    ListFormat:
+     ColumnIndex: true
+     ColumnWidth: 20
+     DataType: object
+     MaxXDim: 2
+     ShowDataType: true
+     ColumnFormat:
+     -
+      Index: 1
+      Alignment: "Left"
+     -
+      Index: 2
+      Alignment: "Left"
+      DataType: string
+     RowFormat:
+     -
+      Index: 0
+      Hidden: false
+    ColumnIndex: [string,3,~,"abs path","rel path"]
+    Columns:
+   Width: 11
+  RowFormat:
+  -
+   Index: 0
+   Alignment: "Center"
+   Hidden: false
+ ColumnIndex: [string,2,"Basic object","Frames"]
+ Columns:

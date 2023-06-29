@@ -1,0 +1,14 @@
+InternalClassType: Method
+Coordinate3D: [9,-10,0]
+Name: openProtocol
+Origin: e323fd22-5471-40c5-a13c-6e974c6e8831
+Program: |+1
+ -- called by: context menu 'protocol'
+ var tabObj:object
+ 
+ tabObj := ?.Recording
+ tabObj.openDialog
+
+RandomSeed: 494
+UUID: c39ad0b6-63d6-46cc-96ad-296444dc2e3d
+$SequenceNumber: 8

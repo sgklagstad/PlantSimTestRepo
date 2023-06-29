@@ -1,0 +1,13 @@
+InternalClassType: Method
+Coordinate3D: [7.75,-39.55,0]
+Name: ShowResults
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ -- called by: context menu
+ Dialog.NumberRepresentation(Results)
+ Results.openDialog
+RandomSeed: 240
+UUID: cd267194-08a6-4ddb-bc6e-127c423540c0
+$SequenceNumber: 49
+3D:
+ Mirror: [false,false,false]

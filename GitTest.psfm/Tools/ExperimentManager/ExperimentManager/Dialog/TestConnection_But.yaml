@@ -1,0 +1,46 @@
+InternalClassType: Method
+Coordinate3D: [17,4,0]
+Name: TestConnection_But
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ -- Test the connection to a simulation machine, which is currently selected.
+ -- called by the dialog (@ = dialog object) button 'Test'
+ var rowDLG,row,numItems:integer
+ var remoteTab,machTab,DistrSimObj:object
+ 
+ terminateRemoteProcesses
+ 
+ DistrSimObj := ~.DistributedSimulation
+ DistrSimObj.removeDistrSim
+ machTab := DistrSimObj.MachinesTable
+ machTab.delete({7,1}..{*,*}) -- handle
+ 
+ rowDLG := @.getIndex("RemotesList")
+ remoteTab := RemoteTable-- "Comp Name", "Num Processes"
+ numItems := remoteTab.yDim
+ 
+ if rowDLG < 1 OR numItems = 0 
+ 	-- No simulation machines defined.
+ 	messageBox(~.rootFolder.Localization.getText(213),1,4) -- info
+ 	return
+ end
+ 
+ ~.DistributedSimulation.updateMachinesTable(remoteTab)
+ 
+ if rowDLG = 1 
+ 	row := 1
+ else
+ 	row := remoteTab.sum({2,1}..{2,rowDLG - 1}) + 1
+ end
+ 
+ if row > 0 
+ 	-- "Test connection to '",~.DistributedSimulation.MachinesTable[1,rowDLG],"'"
+ 	infoBox(to_str(~.rootFolder.Localization.getMessage(214,machTab[1,row],"","")),false)
+ 	~.DistributedSimulation.StartMachine(row,true,true)
+ 	infoBox("",false)
+ end
+RandomSeed: 316
+UUID: 488babc4-8a45-4a36-8e1f-d342199c4b05
+$SequenceNumber: 14
+3D:
+ Mirror: [false,false,false]

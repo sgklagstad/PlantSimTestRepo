@@ -1,0 +1,25 @@
+InternalClassType: Method
+Coordinate3D: [41.85,-18.85,0]
+Name: DS_Results
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ -- Distributed Simulation Interface
+ -> string
+ -- called by: endOfSim if DS_ = true
+ -- The meaning of the columns: ExpNo; ObservNo; OutputVal_1; ..., OutputVal_n;
+ -- n is the number of output values
+ var res:any
+ result := to_str(DS_Experiment,";",DS_Observation,";")
+ for var j := 1 to Output.yDim  
+ 	var AttrStr:string := Output[1,j] 
+ 	res := readValue(AttrStr) -- read both attributes and cells of tablefiles
+ 	result := to_str(result,res,";")
+ 	forget res
+ next
+ -- result := strCopy(result,1,strLen(result)-1) -- truncate the last ";"
+ DS_Output.appendRow(result)
+RandomSeed: 189
+UUID: 3c781947-ead4-429d-b6ad-79d7aa8e3d98
+$SequenceNumber: 88
+3D:
+ Mirror: [false,false,false]

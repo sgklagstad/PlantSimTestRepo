@@ -1,0 +1,18 @@
+InternalClassType: DataTable
+Coordinate3D: [49.35,-16.05,0]
+Name: DS_Output
+Origin: 6fb33eda-8c16-46cb-b4e8-ad231b2e826f
+UUID: 79ff5d86-ae20-4969-aa28-6763fbcd8393
+$SequenceNumber: 108
+$Data:
+ Comment: " "
+ ListFormat:
+  ColumnWidth: 20
+  DataType: string
+  MaxXDim: 1
+  ShowDataType: true
+  ColumnFormat:
+  -
+   Index: 1
+   Width: 44
+ Columns:

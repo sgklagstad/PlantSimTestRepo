@@ -1,0 +1,77 @@
+InternalClassType: Method
+Coordinate3D: [36.9,-5,0]
+Name: TreatError
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ -- Prepare statistics for non-distributed simulation in case of an error
+ param localExp, localRun: integer, message:string
+ Recording.append(to_str("ERROR in Experiment ",localExp," Observation ",localRun," ", message))
+ Recording.localErrors += 1
+ --totalRuns := totalRuns + 1 -- number of observations
+ 
+ if DetailedResults[0,localExp].void
+ 	prepExp(localExp)
+ end
+ 
+ var j:integer
+ if UsingRules
+ 	j := totalRuns mod numRuns
+ 	if j=0 then j := numRuns end
+ 	Dialog.Dialog.setCaption("currObs", to_str(j))
+ else
+ 	Dialog.Dialog.setCaption("currObs", to_str(totalRuns))
+ end
+ 
+ var AttrStr: string
+ var colMean:integer
+ for j := 1 to Output.yDim
+ 	AttrStr := Output[1,j]
+ 	var str:string := ValueDescriptions.get(AttrStr)
+ 	colMean := DetailedResults.getColumnNo(str)
+ 	var ObservTab:table
+ 	if isOutTable(AttrStr)  -- OutputTable
+ 		ObservTab := DetailedResults[colMean + 4,localExp]
+ 		ObservTab[2, localRun] := to_str("Error ",message)
+ 		/*var tab:table := ObservTab[1, localRun] -- no values for this observed table
+ 		for var c := 1 to tab.xDim
+ 			switch tab.getDataType(c)
+ 			case "integer","real","length","speed","weight","acceleration","money"
+ 				for var r := 1 to tab.getColumnYDim(c)
+ 					tab[c,r] := void
+ 				next -- row r of column c
+ 			else
+ 			end	
+ 		next -- column c*/
+ 
+ 	else -- numerical output value
+ 		if DetailedResults[colMean + 6,localExp].void
+ 			DetailedResults.createNestedList(colMean + 6,localExp)
+ 			ObservTab := DetailedResults[colMean + 6,localExp]
+ 			ObservTab.maxXdim := 2
+ 			ObservTab.setDataType(2,"string")
+ 		end
+ 
+ 		ObservTab := DetailedResults[colMean + 6,localExp] -- insert into subtable
+ 		ObservTab[1, localRun] := void -- no value for this observation
+ 		ObservTab[2, localRun] := to_str("Error ",message)
+ 	end
+ next -- j: output value
+ 
+ if UsingRules
+ 	j:=1 -- output values for rules:
+ 	while strLen(Results4Rules[j,0])>0
+ 		AttrStr := Results4Rules[j,0]
+ 		Results4Rules[j,localRun] := 0
+ 		j += 1
+ 	end
+ end -- if UsingRules
+ 
+ Dialog.showProgressByIcon(localExp,localRun)
+ redraw
+ 
+ DetailedResults.refillDialog
+RandomSeed: 166
+UUID: 285cd5f3-cdae-4fb4-9fe7-9bc2c0fde40a
+$SequenceNumber: 113
+3D:
+ Mirror: [false,false,false]

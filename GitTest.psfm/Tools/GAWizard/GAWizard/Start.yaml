@@ -1,0 +1,92 @@
+InternalClassType: Method
+Coordinate3D: [6,0,0]
+Name: Start
+Origin: e323fd22-5471-40c5-a13c-6e974c6e8831
+Program: |+1
+ -- Start the Optimization
+ -- called by: user (dialog, context menu)
+ -- encrypted
+ -> boolean
+ var stmt,str:string
+ 
+ if EventController=void and ~ /= rootFolder
+ 	messageBox(Rootfolder.localization.getText(12),1,4) -- Info: "Please insert an eventcontroller."
+ 	return
+ end
+ if EventController.end = 0 -- new in 15.2: The end time is needed for distribute and non-distribute simulation.
+ 	messageBox(Rootfolder.Localization.getText(194), 1, 1) -- error
+ 	-- The Eventcontroller does not contain an End time. Please enter a time under Settings > End.
+ 	return
+ end
+ 
+ Dialog.changeUserSettings("read") -- resetInitBox(false)
+ 
+ if currGeneration = 0 
+ 	
+ 	recording.delete
+ 	if (NOT UserFitness) AND Fitness.yDim = 0 
+ 		messageBox(rootfolder.Localization.getText(129),1,1) -- Error: Define the fitness calculation.
+ 
+ 		return
+ 	end
+ 	
+ 	var tab:table[table]
+ 	if Individual = void OR (Individual.getDataType(1) /= "table")  
+ 		tab.create
+ 		Individual := tab
+ 	end
+ 
+ 	if UsingRemote
+ 		if LicenseName ~= "EMPLANT_RUN" OR LicenseName ~= "EMPLANT_STD" 
+ 			-- "A distributed simulation cannot start by a Standard or Runtime license."
+ 			messageBox(rootfolder.Localization.getText(39),1,4) -- error
+ 			return
+ 		end
+ 		if askForSaveModel  
+ 			str := modelFile
+ 			-- "The experiments are executed with the saved model."]
+ 			-- 	"Do you want to save the current model?"
+ 			switch messagebox(to_str(
+ 					rootfolder.Localization.getText(36),strChr(10),strChr(13),
+ 					rootfolder.Localization.getText(37)),50,12)
+ 			case 16  -- yes
+ 				if strLpos("\\\\",str) = 1  -- the model located at a remote computer
+ 					stmt := to_str("saveModel(\\"\\\\",str,"\\")")
+ 					executeSilent(stmt) -- in the remote model is ExpMgr.state = "ready"
+ 				else -- the model is on this computer
+ 					stmt := to_str("saveModel(\\"",str,"\\")")
+ 					executeSilent(stmt) -- in the remote model is ExpMgr.state = "ready"
+ 				end
+ 				DistributedSimulation.updateMachinesTable(Dialog.RemoteTable)
+ 				Recording.append(to_str("Save the model \\"",str,"\\" and start the optimization at ",sysdate))
+ 			case 32  -- do not save the model				
+ 				DistributedSimulation.updateMachinesTable(Dialog.RemoteTable)
+ 				Recording.append(to_str("Do not save the model \\"",str,"\\" and start the optimization at ",sysdate))
+ 			else -- cancel
+ 				return
+ 			end
+ 		else -- NOT askForSaveModel for distr sim
+ 			Recording.append(to_str("Do not save the model \\"",str,"\\"."))
+ 			Recording.append(to_str("Start the optimization study at ",sysdate))
+ 		end
+ 	end
+ 	--print "Start the optimization ...";
+ 	Dialog.startDatatime := sysdate
+    else -- optimization already runs
+ 	--print "Continue the optimization";
+ 	recording.append(to_str("Continue the optimization at ",sysdate))
+ end
+ optimRuns := true
+ 
+ currIcon := "Icon0"
+ if _3D.exists
+ 	_3D.VisibleGraphicGroups := makeArray("icon0")
+ end
+ 
+ current.selected := false
+ 
+ GaOptimization.evolve -- first call for distributed and non-distributed simulation variable 'individuals' is reference, calls evaluate, then _RunProcess
+ result := true
+RandomSeed: 434
+UUID: 6b29909d-4c2a-4974-8f88-fe0d9127e030
+$SequenceNumber: 7

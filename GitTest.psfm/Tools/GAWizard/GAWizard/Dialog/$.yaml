@@ -1,0 +1,94 @@
+InternalClassType: Frame
+Coordinate3D: [1.3499999999999996,0,0]
+CreateIn3D: false
+Name: Dialog
+Origin: 1a8a93c5-e2c1-4c28-b823-c9216c6c8159
+UUID: 45eb980f-5950-4d67-b9d3-5f24271b7489
+$SequenceNumber: 6
+$CustomAttributes:
+-
+ Name: openBB
+ ID: 1
+ DataType: method
+ RandomSeed: 437
+ Value: |+1
+  /*
+   called by the context menu
+  */
+  ~.openDialog
+
+-
+ Name: sayNoResults
+ ID: 2
+ DataType: method
+ RandomSeed: 436
+ Value: |+1
+  -- called by: 3 buttons
+  -- messageBox: No Optimization results available.
+   --"No Optimization results available."
+  messageBox(rootfolder.Localization.getText(41),1,4) -- info
+-
+ Name: startDatatime
+ ID: 3
+ DataType: datetime
+ Value: 2003-10-17 11:30:26.63100004
+-
+ Name: readyIndividuals
+ ID: 4
+ DataType: integer
+ Value: 0
+-
+ Name: readyObservations
+ ID: 5
+ DataType: integer
+ Value: 0
+-
+ Name: numPenalty
+ ID: 6
+ DataType: integer
+ Value: 0
+-
+ Name: numAlready
+ ID: 7
+ DataType: integer
+ Value: 0
+-
+ Name: showProgressByIcon
+ ID: 8
+ DataType: method
+ RandomSeed: 435
+ Value: |+1
+  -- show the progress by the icons "Icon0",...,"Icon8"
+  var ApplObj:object := ~
+  var GAOpt:object := ApplObj.GaOptimization
+  var GenSize:integer := GAOpt.GenerationSize
+  -- current state:
+  var GenNo:integer := ApplObj.currGeneration
+  var IndNo:integer := ApplObj.individualNum
+  
+  var n:integer
+  if GenNo = 1 
+  	n := IndNo
+  else
+  	n := GenSize + 2 * (GenNo - 2) * GenSize + IndNo
+  end
+  
+  var totalNum:integer := (2 * GAOpt.NumGenerations - 1) * GAOpt.GenerationSize
+  var iconNo:integer := ceil(8 * n/totalNum) -- round down of a number in [0,8)
+  -- iconNo = 1,...,7
+  -- 8 is shown ones after the last run
+  if 0 < iconNo AND iconNo < 9 
+  	ApplObj.selected := false
+  	var iconStr:string := to_str("icon",iconNo)
+  	ApplObj.CurrIcon := iconStr
+  	if ApplObj._3D.exists
+  		ApplObj._3D.VisibleGraphicGroups := makeArray(iconStr)
+  	end
+  end
+-
+ Name: wait4generationChange
+ ID: 9
+ DataType: boolean
+ Value: false
+$UserPopupMenu:
+ Active: true

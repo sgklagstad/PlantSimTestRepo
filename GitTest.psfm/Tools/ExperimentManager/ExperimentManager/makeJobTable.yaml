@@ -1,0 +1,43 @@
+InternalClassType: Method
+Coordinate3D: [28.55,-13,0]
+Name: makeJobTable
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ -- called by method 'Start', 'M_NewJobId_' (if Rules are used)
+ param ExpNo:integer
+ 
+ var a:any
+ var t:time
+ var j,k,row:integer
+ 
+ JobsTable.delete
+ if UsingRules 
+ 
+ 	for j := 1 to numRuns 
+ 		JobsTable.writeRow(1,j,     ExpNo, j, "open")
+ 	next
+ 
+ 	currExpNo := JobsTable[1,1]
+ 	
+ else -- no rules
+ 
+ 	if UsingTables 
+ 		for k := 1 to ExpTable.yDim 
+ 			if ExpTable[1, k] AND (NOT DetailedResults.ExperimentExecuted[1,k])  -- if active experiment
+ 				for j := 1 to numRuns 
+ 					row := row + 1
+ 					JobsTable.writeRow(1,row,  k, j, "open")
+ 				next
+ 			end -- if active
+ 		next-- k
+ 	else -- a single experiment
+ 		k := 1
+ 		for j := 1 to numRuns 
+ 			row := row + 1
+ 			JobsTable.writeRow(1,row, k, j, "open")
+ 		next
+ 	end
+ end
+RandomSeed: 184
+UUID: 7bf4a150-bd57-402e-983e-040464a40071
+$SequenceNumber: 95

@@ -1,0 +1,73 @@
+InternalClassType: DataTable
+CloseCtrl: "RootFolder.Internal.Tools.closeTab"
+Coordinate3D: [38,-0.2,0]
+Label: ""
+Name: bestIndividuals
+Origin: b11ff439-c617-440e-9cac-aca6c851b6d3
+UUID: 0a31cd23-7448-4a37-83a2-faf22eb4ca8e
+$SequenceNumber: 26
+$CustomAttributes:
+-
+ Name: isOpen
+ ID: 1
+ DataType: boolean
+ Value: false
+$Data:
+ Comment: ~
+ ListFormat:
+  Alignment: "Center"
+  ColumnIndex: true
+  ColumnWidth: 10
+  DataType: table
+  RowIndex: true
+  ShowDataType: true
+  Prototype:
+   Comment: ~
+   EditorPermissions: 12
+   CommonFormat: false
+   ListFormat:
+    ColumnWidth: 5
+    DataType: string
+    ShowDataType: true
+   Columns:
+  ColumnFormat:
+  -
+   Index: 0
+   Alignment: "Center"
+   Hidden: false
+   DataType: table
+   Prototype:
+    Comment: ~
+    EditorPermissions: 12
+    CommonFormat: false
+    ListFormat:
+     ColumnWidth: 5
+     DataType: string
+     ShowDataType: true
+    Columns:
+   Width: 11
+  -
+   Index: 1
+   Alignment: "Right"
+   DataType: real
+  -
+   Index: 2
+   DataType: integer
+   Width: 5
+  -
+   Index: 3
+   Width: 12
+  RowFormat:
+  -
+   Index: 0
+   Alignment: "Center"
+   Hidden: false
+  CellFormat:
+  -
+   Index: 1
+   Rows:
+   -
+    Index: 0
+    Alignment: "Center"
+ ColumnIndex: [string,4,"Individual","Fitness","ID","Chromosomes ->"]
+ Columns:

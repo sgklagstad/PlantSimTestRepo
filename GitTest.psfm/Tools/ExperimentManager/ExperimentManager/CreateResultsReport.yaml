@@ -1,0 +1,66 @@
+InternalClassType: Method
+Coordinate3D: [68,-36,0]
+Name: CreateResultsReport
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ param pResultsFolder:string, bSaveReport:boolean := true
+ /*
+ 1. Read_all files like "Exp2_Obs3.txt" in the folder pResultsFolder
+ 2. Fill the tablefile Experimentmanager.DetailedResults
+ 3. Statistical evaluation and preparation of the Report
+ 4. Save the report
+ */
+ var tab: table[string,string,string] -- Path of the Output Value, Data Type, Value
+ var FileName, OutputStr:string;
+ var ObsTab:table;
+ var col:integer
+ 
+ SingleRun := true
+ tab.create
+ resetWizard
+ for var ExpNo := 1 to ExpTable.yDim
+ 	evalExpTable(ExpNo)
+ 	prepExp(ExpNo) -- create subtables
+ 	for var ObsNo := 1 to NumRuns
+ 		FileName := to_str(pResultsFolder,"\\\\Exp",ExpNo,"_Obs",ObsNo,".txt") -- like Exp211_Obs13.txt
+ 		if existsFile(FileName)
+ 			tab.readFile(FileName)
+ 			for var OutNo := 1 to tab.yDim
+ 				OutputStr := ValueDescriptions.get(tab[1,OutNo])
+ 				col := DetailedResults.getColumnNo(OutputStr)
+ 				ObsTab := DetailedResults[col + 6, ExpNo]
+ 				switch tab[2,OutNo]
+ 				case "time"
+ 					ObsTab[1,ObsNo] := str_to_time(tab[3,OutNo])
+ 				else
+ 					ObsTab[1,ObsNo] := str_to_num(tab[3,OutNo])
+ 				end
+ 			next -- OutNo
+ 		end
+ 	next -- ObsNo
+ 	CalcStatistics4Exp(ExpNo)
+ next -- ExpNo
+ 
+ --if Kind_Output.numberOfOutputValues > 0 then
+ --	Dialog.Dialog.setSensitive("Chart_but", true);
+ --end
+ 
+ if Design4FactorialAnalysis
+ 	FactorialAnalysis(FactorDesignValue)
+ end
+ T_Test(pValues)
+ 
+ -- open the Report
+ ReportCreationDate := sysDate
+ prepReport
+ 
+ if bSaveReport
+ 	ReportObject.save(to_str(pResultsFolder,"\\Report.htm"))
+ end
+ 
+ SingleRun := false
+RandomSeed: 638
+UUID: a0c07553-85f8-4157-9603-313904dbf83f
+$SequenceNumber: 118
+3D:
+ Mirror: [false,false,false]

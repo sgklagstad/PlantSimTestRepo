@@ -1,0 +1,191 @@
+InternalClassType: Method
+Coordinate3D: [9,-4,0]
+Name: DragOnWizard
+Origin: e323fd22-5471-40c5-a13c-6e974c6e8831
+Program: |+1
+ -- Drag & Drop interaction: register table objects and attributes for optimization
+ param dragObjStr:string
+ 
+ var tabObj: object; var j,k:integer;var str,s:string
+ var attrTab,t:table; var selectTab:list[string];var Indizes : list[integer]
+ 
+ var dragObj:object := dragObjStr
+ var ApplObj:object := @
+ var DLGobj:object  := ApplObj.Dialog.GAwizard
+ 
+ if getAsyncKeyState(16) >= 0 
+ 	-- Shift-key is not pressed: define an output values
+ 	tabObj := @.Fitness
+ 	
+ 	switch dragObj.internalClassName
+ 	case "NwData" 
+ 		str := to_str(dragObj)
+ 		str := ApplObj.insRootStr(str,to_str(dragObj.rootframe))
+ 		
+ 		tabObj.setCursor(1,1)
+ 		if tabObj.find({1,1}..{1,*},str) 
+ 			-- The attribute "...." is already registered.
+ 			messageBox(rootfolder.Localization.getMessage(32,str,"",""),1,1) -- error
+ 			return
+ 		else
+ 			switch dragObj.dataType -- only numerical values as output values
+ 			case "weight","speed","length","acceleration","real","integer","time","money"
+ 				tabObj.writeRow(1,tabObj.ydim+1, str, 1)
+ 			else --An output value of type $1 is not allowed.
+ 				messageBox(rootfolder.Localization.getMessage(159,dragObj.dataType,"",""),1,1) -- error
+ 				return
+ 			end
+ 		end
+ 
+ 	else  -- inspect internalClassName
+ 		attrTab.create-- both methods and attributes
+ 		dragObj.putAttributeNamesIntoTable(attrTab,true,true,userInterfaceLanguage)
+ 		j:=1; t := self.nonrelevantAttributes
+ 		repeat
+ 			str := attrTab[2,j]; t.setCursor(1,1)  -- only numerical values as output values
+ 			if (str = "weight" OR str = "speed" OR str = "length" OR str = "acceleration" OR
+ 				    str = "real" OR str = "integer" OR str = "time") AND
+ 			    NOT t.find({1,1}..{2,*},attrTab[1,j])  -- nonrelevant attribute
+ 			
+ 				j:=j+1
+ 			else
+ 				attrTab.cutRow(j)
+ 			end
+ 		until j > attrTab.yDim
+ 		attrTab.sort(1,"up")
+ 		selectTab.create
+ 		selectTab.insertList(1,attrTab.copy({1,1}..{1,*}))
+ 		-- Please select one or several result values,
+ 		-- which can statistically be evaluated.
+ 		Indizes := promptlistn(selectTab, rootfolder.Localization.getText(183),rootfolder.Localization.getText(184))
+ 		var useFitnessTable:boolean := (Indizes.dim>0)
+ 		ApplObj.UserFitness := NOT useFitnessTable -- using Tablefile Fitness
+ 		if useFitnessTable 
+ 			ApplObj.UserFitness := false
+ 			DLGobj.setSensitive("Fitness_B", true)
+ 			DLGobj.setCheckBox("FitnessTable", true)
+ 			DLGobj.setCheckBox("FitnessMethod", false)
+ 		end
+ 		
+ 		while Indizes.dim>0 		
+ 			j:=Indizes.remove(1)
+ 			str := to_str(dragObj,".",attrTab[1,j])
+ 			str := ApplObj.insRootStr(str,to_str(ApplObj.rootframe)) -- dragObj.rootframe
+ 			tabObj.setCursor(1,1)
+ 			if NOT tabObj.find({1,1}..{1,*},str) 
+ 				tabObj.writeRow(1,tabObj.ydim+1, str, 1)
+ 			end
+ 			--	print str;
+ 		end
+ 		
+ 	end -- inspect internalClassName
+ 
+ else ---##################################################################
+ 	-- Shift-key pressed: define an input values
+ 	tabObj := @.ProblemDefinition
+ 	switch dragObj.internalClassName
+ 	case "Method","NwChart","Comment","NwRandom","NwStack","NwQueue","NwDigitDpy","NwTimeSequence",
+ 		"NwHtmlReport","FileSS","NwDialog","NwFileLinkthen" 
+ 		return
+ 	case "NwData" 
+ 		str := to_str(dragObj)
+ 		str := ApplObj.insRootStr(str,to_str(dragObj.rootframe))
+ 		if tabObj.getColumnNo(str) = -1 
+ 			k:=2; while tabObj[k,0]/=void loop k:=k+2;end
+ 			tabObj[k,0]:= str
+ 		else --"The attribute is already registered:"
+ 			messageBox(to_str(rootfolder.Localization.getText(32),strChr(10),str),1,1) -- error
+ 		end
+ 	
+ 	case "NwList2D" 
+ 		str := to_str(dragObj)
+ 		str := ApplObj.insRootStr(str,to_str(dragObj.rootframe))
+ 		if dragObj.yDim < 2 
+ 			-- "The table is unsuitable for an optimization of sequence."
+ 			messageBox(rootfolder.Localization.getText(43),1,1) -- error
+ 			return
+ 		end
+ 		if tabObj.getColumnNo(str) = -1  -- look at table "ProblemDefinition"
+ 			k:=2; while tabObj[k,0]/=void loop k:=k+2;end
+ 			tabObj[k,0]:= str
+ 			t := @.SeqLoc.Assignments 
+ 			t[1,t.yDim + 1] := dragObj
+ 		else -- "The table is already registered:"
+ 			messageBox(to_str(rootfolder.Localization.getText(33),strChr(10),str),1,1) -- error
+ 		end
+ 	
+ 	case "NwSequenceChromoCoding","NwSelectChromoCoding","NwRangeAllocChromoCoding","NwSetAllocChromoCoding" 
+ 		@.gaOptimization.taskTable.setCursor(1,1)
+ 		if @.gaOptimization.taskTable.find(dragObj) 
+ 			-- "The table is already registered:"
+ 			messageBox(rootfolder.Localization.getText(33) + to_str(dragObj),1,1) -- error
+ 		else
+ 			@.gaOptimization.taskTable[1, @.gaOptimization.taskTable.yDim + 1] := dragObj
+ 			print "Add GA-table of type \\"",dragObj.internalClassName,"\\""
+ 			if strLen(@.UserConfigMethod) = 0
+ 				-- "You must use the configuration method."
+ 				messageBox(rootfolder.Localization.getText(320),1,1) -- error
+ 			end
+ 		end
+ 
+ 	else
+ 		attrTab.create
+ 		--dragObj.putAttributeNamesIntoTable(attrTab)
+ 		dragObj.putAttributeNamesIntoTable(attrTab,true,false,userInterfaceLanguage)
+ 		j:=1
+ 		t := self.nonrelevantAttributes
+ 		repeat
+ 			str := attrTab[2,j]; t.setCursor(1,1)
+ 			if (str = "weight" OR str = "speed" OR str = "length" OR str = "acceleration" OR
+ 				    str = "real" OR str = "integer" OR str = "time" OR str = "string" OR str = "boolean") AND
+ 			    NOT t.find({1,1}..{2,*},attrTab[1,j])  -- nonrelevant attribute
+ 			
+ 				j:=j+1
+ 			else
+ 				attrTab.cutRow(j) --print str;
+ 			end
+ 		until j > attrTab.yDim
+ 		
+ 		attrTab.sort(1,"up")
+ 		selectTab.create
+ 		selectTab.insertList(1,attrTab.copy({1,1}..{1,*}))
+ 		--"Please select Model parameter to be optimized."
+ 		Indizes := promptlistn(selectTab, rootfolder.Localization.getText(30))
+ 		while Indizes.dim>0  -- all selected attributes
+ 			j:=Indizes.remove(1)
+ 			str := to_str(dragObj,".",attrTab[1,j])
+ 			str := ApplObj.insRootStr(str,to_str(rootframe)) -- dragObj.rootframe
+ 			s := ?.recogDataType(str)
+ 			if s = "Not allowed" 
+ 				--"The object does not have the selected attribute:"
+ 				messageBox(to_str(rootfolder.Localization.getText(31),strChr(10),str),1,1) -- error
+ 			else
+ 				if tabObj.getColumnNo(str) = -1 
+ 					k:=2; while tabObj[k,0]/=void loop k:=k+2;end
+ 					tabObj[k,0]:= str
+ 				else--"The attribute is already registered:"
+ 					messageBox(rootfolder.Localization.getMessage(32,str,"",""),1,1) -- error
+ 				end
+ 			end
+ 		end -- all selected attributes
+ 	end
+ end -- of define an input values
+ @.resetGA
+RandomSeed: 498
+UUID: e89530cf-2c3f-42e4-8630-0ed3a975a2e6
+$SequenceNumber: 4
+$CustomAttributes:
+-
+ Name: nonrelevantAttributes
+ ID: 1
+ DataType: table
+ Value:
+  Comment: ~
+  CommonFormat: false
+  ListFormat:
+   ColumnWidth: 20
+   DataType: string
+   ShowDataType: true
+  Columns:
+  - [1,string,16,"ChannelID","CurrIcon","CurrIconNo","CurrIconTransparent","IconAngle","IconRotation","NumAnimationEvents","ResStatOn","RotateAroundRefPoint","RotateMUs","Selected","StatusWithIcons","exitCtrlFront","exitCtrlRear","resourceType","Name"]
+  - [2,string,15,"KanalID","BildName","BildNr","BildTransparent","BildWinkel","BildDrehung","AnzahlAnimationsereignisse","ResStatAn","DreheUmRefPunkt","DreheBEs","Selektiert","ZustandsanzeigeMitBild","AusStBug","AusStHeck","Ressourcentyp"]

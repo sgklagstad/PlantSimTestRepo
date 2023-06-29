@@ -1,0 +1,52 @@
+InternalClassType: Method
+Coordinate3D: [55,-33,0]
+Name: RunExperiment
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ param pExpNum:integer, pObsNum:integer, pResultsFolder:string := ""
+ 
+ -- This process is started for the simulation of a single observation.
+ SingleRun := true
+ 
+ UsingRemote := true
+ dialog.restoring := false
+ UsingRules := false
+ --UserEvalMethod_:= "" -- User defined evaluation method is impossible since the observation is already computed.
+ UsingTables := true
+ MailAtEnd := false
+ saveHTMLatEnd := false
+ showRuntimeAtEnd := false
+ saveExcelatEnd := false
+ 
+ ResultsFolder := pResultsFolder
+ 
+ if pExpNum < 0 -- If negative the experiment number is the nth active experiment
+ 	var expCount:integer
+ 	
+ 	for var i := 1 to ExpTable.yDim
+ 		if ExpTable[1,i]
+ 			expCount += 1
+ 	
+ 			if expCount = pExpNum
+ 				currExpNo := i
+ 				exitloop
+ 			end
+ 		end
+ 	next
+ else
+ 	currExpNo := pExpNum
+ end
+ 
+ currRunNo := pObsNum
+ 
+ animation(false)
+ EventController.Realtime := false
+ 
+ IsRunning := true
+ 
+ EventController.reset
+RandomSeed: 559
+UUID: 9ae440d3-9f88-490f-9ee3-a6be923c0331
+$SequenceNumber: 117
+3D:
+ Mirror: [false,false,false]

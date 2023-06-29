@@ -1,0 +1,19 @@
+InternalClassType: Dialog
+Origin: 8b3e74cf-6785-4b39-9a8e-b86fbe4f888c
+UUID: e7214eca-1a95-4c92-9de8-1aeeecb76ec4
+$SequenceNumber: 6
+$CustomAttributes:
+-
+ Name: callback
+ ID: 1
+ $DataType: method
+ RandomSeed: 263
+$Elements:
+-
+ Type: EditText
+ Name: "CompName_inp"
+ Caption: "localhost"
+-
+ Type: EditText
+ Name: "numParallelProc_Inp"
+ Caption: "8"

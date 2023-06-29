@@ -1,0 +1,36 @@
+InternalClassType: DataTable
+Coordinate3D: [38,-22.35,0]
+Name: allChildren
+Origin: b11ff439-c617-440e-9cac-aca6c851b6d3
+UUID: c975a6b1-aa8b-436f-bab3-7cf7c2085742
+$SequenceNumber: 44
+$Data:
+ ListFormat:
+  ColumnIndex: true
+  ColumnWidth: 20
+  DataType: real
+  FormatString: "-15.2"
+  MaxXDim: 2
+  ShowDataType: true
+  ColumnFormat:
+  -
+   Index: 0
+   Hidden: false
+   DataType: integer
+   FormatString: "-9"
+   Width: 11
+  -
+   Index: 1
+   Alignment: "Right"
+   DataType: integer
+   FormatString: "-9"
+   Width: 16
+  -
+   Index: 2
+   DataType: real
+  RowFormat:
+  -
+   Index: 0
+   Hidden: false
+ ColumnIndex: [string,3,~,"Child","Fitness"]
+ Columns:

@@ -1,0 +1,12 @@
+InternalClassType: Variable
+Comment: "Attention: only used when using rules!!!"
+Coordinate3D: [62,-33,0]
+DataType: boolean
+Font: 2
+HasInitValue: false
+Name: SingleRun
+Origin: 0f4944c4-4bd7-4f29-b98e-746708247c83
+ShowDataType: false
+UUID: 63726d71-d60a-40ce-b2af-3d140d97991a
+$SequenceNumber: 73
+Value: false

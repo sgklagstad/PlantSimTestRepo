@@ -1,0 +1,15 @@
+InternalClassType: Method
+Coordinate3D: [6.7999999999999989,-20.05,0]
+Name: EndOfExperiment
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ -- User defined method when a non-promising scenario is detected.
+ -- The running simulation of the observation is stopped.
+ -- After executing this method the next experiment is started.
+ 
+ EventController.stop(false) -- Do not call endSim methods.
+ firstReset := true
+ &endOfSim.executeNewCallChain(true) -- stopped experiment
+RandomSeed: 175
+UUID: a8e8e680-4e95-4d99-8ad4-0f35c0fd2461
+$SequenceNumber: 102

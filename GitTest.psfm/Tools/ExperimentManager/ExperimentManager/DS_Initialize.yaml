@@ -1,0 +1,23 @@
+InternalClassType: Method
+Coordinate3D: [42,-15.850000000000001,0]
+Name: DS_Initialize
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ -- Distributed Simulation Interface
+ param ExpNo,ObsNo: integer 
+ 
+ DS_Experiment := ExpNo
+ DS_Observation := ObsNo
+ 
+ DefSeed4Run(ExpNo, ObsNo)
+ evalExpTable(ExpNo) -- ExpNo is the row of the tablefile 'ExpTable'
+ 
+ if strLen(UserConfigMethod) > 0 
+ 	var stmt:string  := to_str(~,".", UserConfigMethod,"(", ExpNo,")")
+ 	execute(stmt)
+ end
+RandomSeed: 191
+UUID: 50a2b9cd-2516-4e4b-9843-77697f6d6644
+$SequenceNumber: 86
+3D:
+ Mirror: [false,false,false]

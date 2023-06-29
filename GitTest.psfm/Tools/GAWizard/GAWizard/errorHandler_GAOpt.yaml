@@ -1,0 +1,15 @@
+InternalClassType: Method
+Coordinate3D: [32.300000000000004,-4,0]
+Name: errorHandler_GAOpt
+Origin: e323fd22-5471-40c5-a13c-6e974c6e8831
+Program: |+1
+ -- Error handling of the basic object 'GA Optimization'
+ -- called by: error control of the 'GA Optimization'
+ param errorNo:integer, Mgs:string 
+  
+ var s:string := to_str(?.name," outputs error",errorNo," means \\"",Mgs,"\\"")
+ print s
+ recording.append(s)
+RandomSeed: 428
+UUID: 45acdd0c-7ebf-4a0e-9f16-a38ab2afe46e
+$SequenceNumber: 13

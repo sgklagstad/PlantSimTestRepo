@@ -1,0 +1,17 @@
+InternalClassType: Method
+Coordinate3D: [55,-36,0]
+Name: SingleRunSetParameter
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ -- Called by reset
+ -- This process is started for the simulation of a single observation.
+ evalExpTable(currExpNo) -- set the input values defined in 'ExtTable'
+ 
+ DefSeed4Run(currExpNo, currRunNo)
+ 
+ eventController.start --WithoutAnimation
+RandomSeed: 209
+UUID: 6d745ef9-8c1a-41cf-8d78-8dc37d26f853
+$SequenceNumber: 72
+3D:
+ Mirror: [false,false,false]

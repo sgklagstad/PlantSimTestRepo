@@ -1,0 +1,53 @@
+InternalClassType: Chart
+Accumulated: false
+Category: "Chart"
+ChartType: "Markers"
+CloseCtrl: "RootFolder.Internal.Tools.CloseChart"
+CollectData: true
+Coordinate3D: [31.3,-17.35,0]
+DataInColumn: true
+DataRange: "{2,*}..{*,*}"
+DataTable: "allChildren"
+GapWhenNull: false
+Label: "Fitness of the offspring"
+LegendLocation: "(Off)"
+Mode: "Watch"
+Name: allOffSpring
+NullValue: -999999
+Origin: 9047b0a8-681b-4604-a5d0-e9424485f3ba
+StepCurve: false
+Subtitle: "Fitness of the offspring"
+Title: ""
+UseInputChannels: false
+UUID: 5ecd0b71-52a9-49f3-93b7-759520a7002b
+XGrid: false
+XGridLines: 25
+XLabel: "Fitness of the offspring"
+YGrid: false
+YGridLineInterval: 0
+YLabel: "Fitness"
+YScaleMax: -1e+308
+YScaleMin: 1e+308
+$SequenceNumber: 45
+$CustomAttributes:
+-
+ Name: isOpen
+ ID: 1
+ DataType: boolean
+ Value: true
+$Annotations:
+$Colors:
+- 0x0
+- 0xffffff
+- 0xffffff
+- 0x0
+- [0xff0000,0,3]
+- [0xee00,0,5]
+- [0xff0000,0,7]
+- [0xe8f8,0,2]
+- [0xffee00,0,2]
+- [0xff00ff,0,2]
+- [0xee00cc,0,2]
+- [0xddff,0,2]
+- [0xff,0,2]
+$WindowRect: [8,628,1056,157]

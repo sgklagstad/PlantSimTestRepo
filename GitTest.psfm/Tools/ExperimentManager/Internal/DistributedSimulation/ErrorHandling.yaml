@@ -1,0 +1,32 @@
+InternalClassType: Method
+Coordinate3D: [16,-1.85,0]
+Name: ErrorHandling
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ -- Error handler in a simulation machine during a distributed simulation
+ param byref error : string, method_path : string, line_number : integer
+ 
+ var observedError:string := error
+ 
+ /*if ~.ModelErrorHandling /= void -- There is an error handler of the model.
+ 	~.ModelErrorHandling.execute(error, method_path, line_number)
+ 	-- In case of error = "" means that the error was treated by the global error handler of the model.
+ end*/
+ 
+ if line_number = 0
+ 	-- The error was in a formular.
+ 	var stopOnErrors, stopOnFormularErrors: boolean
+ 	getErrorStop(stopOnErrors, stopOnFormularErrors)
+ 	if stopOnFormularErrors
+ 		fireSimTalkMessage(to_str("Unknown error in formular ", makePathRelative(method_path,~.~), ": ",observedError))
+ 	end;
+ 
+ else
+ 	-- The error was in a method.
+ 	fireSimTalkMessage(to_str("Unknown error in method ", makePathRelative(method_path,~.~)," in line ",line_number,": ",observedError))
+ end
+ 
+ error := "" -- catch the error
+RandomSeed: 339
+UUID: 37b86773-b632-437e-b6f2-2ddafcdb11d5
+$SequenceNumber: 8

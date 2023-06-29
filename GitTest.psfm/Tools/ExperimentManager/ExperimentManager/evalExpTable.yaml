@@ -1,0 +1,59 @@
+InternalClassType: Method
+Coordinate3D: [0.5,-16.8,0]
+Name: evalExpTable
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ -- set the input values defined in 'ExtTable'
+ -- called by: distributed and non-distributed simulation
+ param ExpNo:integer->boolean
+ result := true
+ var numPar,numParSuccess: integer
+ var AttrStr, infoStr:string
+ var AttrVal:any
+ Recording.append("Evaluation of the ExpTable")
+ 
+ --var ExpStr:string := ExpTable.getExpID(ExpNo)
+ --if InputValues.getRowNo(ExpStr) = -1 then InputValues[0, InputValues.YDimIndex+1] := ExpStr; end
+ --if_Protocol.getRowNo_(ExpStr) = -1 then    _Protocol[0,    _Protocol.YDimIndex+1] := ExpStr; end
+ 
+ -- delete all MUs in frames since otherwise the capacity of objects can't be resized.
+ root.deleteMovables
+ 
+ var j:integer := 2
+ while ExpTable[j,0]/=void  -- scan the column index
+ 	var str:string := ExpTable[j,0]
+ 	AttrStr := ValueDescriptions.getOrig(str)
+ 	if ExpTable[j, ExpNo]/=void
+ 
+ 		AttrVal := ExpTable[j, ExpNo]
+ 		numPar += 1
+ 		if writeValue(AttrStr, AttrVal)
+ 			numParSuccess += 1
+ 			infoStr := to_str("Tab input: ",AttrStr," := ",AttrVal)
+ 			var colNo:integer := InputValues.getColumnNo(AttrStr)
+ 			if colNo = -1
+ 				colNo := InputValues.XDimIndex + 1
+ 			end
+ 			InputValues[colNo,ExpNo] := AttrVal
+ 		else
+ 			result := false
+ 			infoStr := to_str("Error by Tab input: ",AttrStr," := ",AttrVal)
+ 		end
+ 		forget AttrVal
+ 
+ 	else -- void the 'ExtTable'
+ 		infoStr := to_str("Tab input: ",AttrStr," is not changed. Current value: ",readValue(AttrStr))
+ 	end
+ 	--print infoStr;
+ 	Recording.append(infoStr)
+ 	j += 1
+ end -- next AttrStr from 'ExpTable'
+ 
+ -- numParSuccess numPar of static values were set.
+ --_Protocol[2,ExpNo]
+ Recording.append(rootfolder.Localization.getMessage(119,numParSuccess,numPar,""))
+RandomSeed: 285
+UUID: c26bce97-b427-4d37-98fd-c43e04a126d3
+$SequenceNumber: 13
+3D:
+ Mirror: [false,false,false]

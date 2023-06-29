@@ -1,0 +1,16 @@
+InternalClassType: Conveyor
+Coordinate3D: [-3,0,0]
+Length: 3
+Origin: 6915ad44-9601-4166-98d4-915ca93c0498
+RandomSeed: 36
+UUID: 57ba563a-3f95-419b-be85-d560eb07708e
+$SequenceNumber: 2
+$Successors:
+-
+ $Succ: 02534f0c-92de-4079-9a74-c516ae82e300
+ Origin: a06716e4-e2d2-4d9f-91d2-1a38b8161bf7
+ UUID: 7ab7d0b6-24bf-478b-9724-439742e0136d
+ $SequenceNumber: 3
+$CurveSegments:
+- 0
+- [0,3,0]

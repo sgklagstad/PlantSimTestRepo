@@ -1,0 +1,12 @@
+InternalClassType: Toolbar
+ChangePathCtrl:
+ConstructorCtrl:
+DestructorCtrl:
+Label: "User Objects"
+MoveToFolderCtrl:
+Name: Toolbar
+UUID: e9c9f773-3d3e-4834-81f6-64ebad5b5701
+Visible: true
+$SequenceNumber: 4294967295
+$Objects:
+- 88a8ca02-9bfd-4463-924e-589240febc0c

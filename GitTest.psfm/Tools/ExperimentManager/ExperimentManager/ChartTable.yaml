@@ -1,0 +1,26 @@
+InternalClassType: DataTable
+Coordinate3D: [45,-0.8,0]
+Name: ChartTable
+Origin: 6fb33eda-8c16-46cb-b4e8-ad231b2e826f
+UUID: cabb91b3-95f1-4f16-9c62-7860bb27eb4b
+$SequenceNumber: 122
+$Data:
+ ListFormat:
+  ColumnIndex: true
+  ColumnWidth: 20
+  DataType: real
+  FormatString: "-15.2"
+  RowIndex: true
+  ShowDataType: true
+  RowFormat:
+  -
+   Index: 0
+   Hidden: false
+  CellFormat:
+  -
+   Index: 1
+   Rows:
+   -
+    Index: 3
+    FontColor: 0x0
+ Columns:

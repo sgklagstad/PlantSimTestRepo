@@ -1,0 +1,9 @@
+InternalClassType: Variable
+Coordinate3D: [17.5,-4.2999999999999989,0]
+DataType: boolean
+Name: Production
+Origin: 78f3ee96-b2f7-42c6-a13f-95e1f73b38f1
+ShowDataType: false
+UUID: 6b75f1bf-aa3c-49cb-bb9d-538b0e62f1d8
+$SequenceNumber: 7
+Value: true

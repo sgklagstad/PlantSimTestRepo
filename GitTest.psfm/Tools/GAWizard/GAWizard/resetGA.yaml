@@ -1,0 +1,297 @@
+InternalClassType: Method
+Coordinate3D: [6,-8,0]
+Name: resetGA
+Origin: e323fd22-5471-40c5-a13c-6e974c6e8831
+Program: |+1
+ ->boolean
+ -- called by: start, button "Reset_", context menu and Drag&Drop
+ /*if ResetIsInProgress
+ 	return
+ else
+ 	ResetIsInProgress := true
+ end*/
+ &M_NewJobId.infoBoxOpen := false
+ 
+ var DLGobj:object := dialog.GAWizard
+ deleteSuspendedMethods
+ 
+ DLGobj.setSensitive("resetGA_but",false)
+ var k:integer
+ var s:string
+ var a:any
+ 
+ if UsingRemote
+ 	-- For the distributed simulation the ExperimentManager requires access to the computer.
+ 	-- Für die verteilte Simulation benötigt der ExperimentManager Zugriff auf den Computer.
+ 	if NOT DistributedSimulation.M_isComputerAccessPermitted("Check the dialog tab Distribution: \\"Use distributed simulation\\".") -- tip in the console
+ 		return
+ 	end
+ end
+ 
+ if saveHTMLatEnd OR MailAtEnd
+ 	if NOT DistributedSimulation.M_isComputerAccessPermitted("Check the dialog tab Miscellaneous: \\"Save the report after the experiment run\\", \\"Send e-mail\\".")
+ 		return
+ 	end
+ end
+ 
+ selected := false
+ infobox("",false)
+ result := existsObject("Eventcontroller")
+ 
+ -- Preparation
+ Rootfolder.Internal.Tools.getActiveContr(current)
+ currGeneration := 0
+ ReportObject.Close
+ 
+ currIcon :="Default"
+ if _3D.exists
+ 	_3D.VisibleGraphicGroups := makeArray("default")
+ end
+ 
+ recording.delete
+ recording.remoteErrors := false
+ penaltyValue := penaltyValueOrig
+ 
+ optimRuns   := false
+ dialog.wait4generationChange := false
+ 
+ GAstopFlag  := false
+ dialog.RemoteMachines.delete({0,1}..{*,*}) -- for the Report (as entire tablefile)
+ runningTime := 0; dialog.numPenalty := 0; dialog.numAlready := 0
+ 
+ bestIndividuals.delete({0,1}..{*,*})
+ bestIndividuals.delete({3,0}..{*,0})
+ var numChrom:integer := GAOPtimization.TaskTable.ydim
+ bestIndividuals[numChrom + 3,0] := rootfolder.Localization.getText(79) -- "Observations"
+ bestIndividuals[3,0] := rootfolder.Localization.getText(127) -- "Chromosomes ->"
+ bestIndividuals.setColumnWidth(3, 12)
+ Dialog.NumberRepresentation(bestIndividuals)
+ 
+ -- Fitness.resTab.delete;
+ JobsTable.delete
+ Children.delete
+ allChildren.delete
+ OffSpring.annotations.delete
+ annotations.delete
+ allOffSpring.annotations.delete
+ --Evolution.active := false;
+ EvolutionTab.delete({0,1}..{*,*}) -- Performance graph
+ 
+ if numRuns > 1
+ 	--"Fitness of the offspring with Min-Max intervals of ",numRuns," observations"
+ 	s := rootfolder.Localization.getMessage(65,numRuns,"","")
+ else
+ 	s := rootfolder.Localization.getText(66) --"Fitness of the offspring"
+ end
+ allOffSpring.label := rootfolder.Localization.getText(66)--"Fitness of the offspring"
+ dialog.GAWizard.setCaption("HTML_but",rootfolder.Localization.getText(49)) --"Report"
+ allOffSpring.subtitle := s-- in the past xLabel
+ 
+ rootfolder.internal.Tools.prepProblDef(ProblemDefinition)
+ Preparation -- for instance, prepare position constraints in GASequence
+ 
+ if not setTaskTable AND rootfolder /= ~ -- true if at least one GA table was found
+ 	dialog.GAWizard.setsensitive("start_but",false)
+ 
+ 	s := rootfolder.Localization.getText(19)
+ 	print s
+ 	infobox(s,false) -- "Please describe your optimization problem."
+ 	sleep(1.5,false)
+ 	infobox("",false)
+ 	--messageBox(rootfolder.Localization.getText(19),1,4)
+ 	return
+ end
+ 
+ DistributedSimulation.removeDistrSim
+ -- DistributedSimulation.Dialog.callback.execute("APPLY") -- determine numCores of the current computer
+ 
+ -- determine numCores of the current computer (distributed simulation is running on different computers, localhost is changed)
+ var RemoteTab:object := dialog.RemoteTable
+ for var j := 1 to RemoteTab.yDim
+ 	if RemoteTab[1,j] ~= "localhost" and RemoteTab[3,j]
+ 		RemoteTab[2,j] := getNumberOfCPUCores
+ 	end
+ next
+ terminateRemoteProcesses
+ isSimulationMachine := false
+ 
+ if (NOT result) AND rootfolder /= ~  -- Please insert an EventController.
+ 	messageBox(rootfolder.Localization.getText(12),1,4)  -- info
+ 	dialog.GAWizard.setsensitive("start_but",false)
+ 	return
+ end
+ if gaOptimization.Direction ~= "Maximum"
+ 	bestFitness := 0
+ else -- minimum
+ 	bestFitness := 1e300
+ end
+ -- GaOptimization.FitnessReference := "Absolute";
+ 
+ if result  -- eventcontroller exists
+ 	eventController.reset
+ end
+ GaOptimization.reset
+ 
+ individuals := void -- 16.0.1
+ /*if individuals /= void
+ 	individuals.delete
+ end*/
+ 
+ SVGofCharts.delete
+ 
+ dialog.GAWizard.setCaption("currFitnessR_com"," ")
+ 
+ dialog.GAWizard.setCaption("currGenR_com",    " ")
+ dialog.GAWizard.setCaption("currIndivR_com",  " ")
+ dialog.GAWizard.setCaption("currRunR_com",  " ")
+ dialog.GAWizard.setCaption("No_Individual_Inp",  "")
+ 
+ dialog.GAWizard.setCaption("start_but",rootfolder.Localization.getText(2))-- Start
+ dialog.GAWizard.setsensitive("start_but",true)
+ 
+ dialog.GAWizard.setsensitive("start_but",true)
+ 
+ StatisticalEvaluation.delete({0,1}..{*,*})
+ StatisticalEvaluation.setCommonFormat(6,true); -- observations
+ StatisticalEvaluation.maxXdim := 8
+ StatisticalEvaluation.setDataType(8,"string")
+ 
+ -- detect the datatype of the fitness
+ if UserFitness and strLen(UserCalculateFitness) > 0
+ 	-- check the correctness of the calculation of the Fitness
+ 	a := execute(to_str("-> any; return ",~,".",UserCalculateFitness))
+ 	TypeOfFitness := getSimTalkTypename(a)
+ 	if TypeOfFitness ~= "void"
+ 		TypeOfFitness := "real"
+ 	end
+ 	forget a
+ else
+ 	TypeOfFitness := "real"
+ 	for var j := Fitness.yDim downto 1
+ 		if strLen(Fitness[1,j]) = 0
+ 			Fitness.cutrow(j)
+ 		else
+ 			a := executeSilent(to_str("-> any; return ",Fitness[1,j]))
+ 			s := getSimTalkTypename(a)
+ 			if s ~= "time"
+ 				TypeOfFitness := s
+ 			end
+ 			forget a
+ 		end
+ 	next -- j
+ end
+ 
+ var tab:table -- formating column 6 (observations) and Tablefile_IntermediateResults
+ tab.create
+ tab.dataType := TypeOfFitness
+ tab.columnIndex := true -- formating row 0
+ 
+ tab.setBackgroundColorRow(0,makeRGBValue(192,192,192))
+ tab.setFontColorRow(0,makeRGBValue(0,0,160))
+ tab.setFontSizeRow(0,2)
+ s := rootfolder.Localization.getText(126) -- "Fitness"
+ tab[1,0] := s
+ tab.setColumnWidth(1,strLen(s))
+ tab.setAlignmentCells({1,*}..{*,*},"left")
+ 
+ IntermediateResults.maxXdim := -1
+ IntermediateResults.delete({0,0}..{*,*})
+ IntermediateResults.setBackgroundColorRow(0,makeRGBValue(192,192,192)) -- Tablefile
+ IntermediateResults.setFontColorRow(0,makeRGBValue(0,0,160))
+ IntermediateResults.setFontSizeRow(0,2)
+ IntermediateResults[0,0] := rootfolder.Localization.getText(73) -- "Individual"
+ IntermediateResults.setAlignmentCells({1,*}..{*,*},"right")
+ 
+ if UserFitness
+ 	tab.maxXdim := 1 -- fitness by calculating a method
+ 	tab.setDataType(1,TypeOfFitness)
+ else  -- fitness by calculating a weighted sum
+ 	if Fitness.yDim = 0
+ 		return
+ 	end
+ 
+ 	var numComp:integer := max(1, Fitness.ydim)
+ 
+ 	var genSize:integer := GAoptimization.GenerationSize
+ 	var numGen:integer := GAoptimization.NumGenerations
+ 
+ 	if Fitness.yDim = 1
+ 		tab.setDataType(1,TypeOfFitness)
+ 		tab[1,0] := Fitness[1,1]
+ 		tab.setColumnWidth(1,strLen(Fitness[1,1]))
+ 		tab.maxXdim := 1
+ 	else
+ 		tab.maxXdim := Fitness.yDim + 1
+ 		tab.setAlignmentColumn(1,"left") -- Fitness of observation
+ 		tab.setDataType(1,TypeOfFitness)
+ 		tab.setBackgroundColorColumn(1,makeRGBValue(222,235,249))
+ 		for var j := 1 to Fitness.yDim
+ 			s := Fitness[1,j]
+ 			forget a
+ 			a := executeSilent(to_str("-> any return ",s))
+ 			if a=void
+ 				tab.setDataType(j+1,"real")
+ 			else
+ 				tab.setDataType(j+1,getSimTalkTypename(a))
+ 			end
+ 
+ 
+ 			tab.setBackgroundColorColumn(j+1,makeRGBValue(255,255,255))
+ 			tab.setAlignmentColumn(j+1,"right")
+ 			tab.setColumnWidth(j+1,strLen(s))
+ 			tab[j+1,0] := s
+ 		next -- j
+ 
+ 		var Obs:string := rootfolder.Localization.getText(144) -- "Observation"
+ 		for var ObsNo := 1 to numRuns
+ 			var CompStr:string
+ 			var aa:integer := 1 + (ObsNo - 1) * (numComp + 1)
+ 			IntermediateResults[aa,0] := to_str(Obs," ",ObsNo) -- column 'Observation'
+ 			IntermediateResults.setColumnWidth(aa, strLen(Obs)) -- ColumnWidth
+ 			IntermediateResults.setDataType({aa,1}..{aa,*},TypeOfFitness) -- DataType
+ 			IntermediateResults.setBackgroundColorColumn(aa,makeRGBValue(222,235,249)) -- Background
+ 			for var c := 1 to numComp
+ 				CompStr := Fitness[1,c]
+ 				var anyVar:any := executeSilent(to_str("-> any return ",CompStr))
+ 				aa := aa + 1
+ 				IntermediateResults[aa,0] := CompStr -- output name
+ 				IntermediateResults.setColumnWidth(aa,round(0.8*strLen(CompStr))) -- ColumnWidth
+ 				if anyVar /= void
+ 					IntermediateResults.setDataType({aa,*}..{aa,*},getSimTalkTypename(anyVar)) -- DataType
+ 				else
+ 					IntermediateResults.setDataType({aa,*}..{aa,*}, "real")
+ 				end
+ 
+ 				IntermediateResults.setBackgroundColorColumn(aa,makeRGBValue(255,255,255))-- Background
+ 				forget anyVar
+ 			next
+ 		next
+ 		IntermediateResults.maxXdim := (Fitness.yDim + 1) * numRuns
+ 	end -- else
+ end
+ StatisticalEvaluation.setCommonFormatData(tab,6)
+ 
+ if TypeOfFitness ~= "time"
+ 	StatisticalEvaluation.setDataType({1,*}..{5,*},"time")
+ 	BestIndividuals.setDataType(1,"time")
+ 	allChildren.setDataType(2,"time")
+ 	EvolutionTab.setDataType({1,*}..{3,*},"time")
+ else
+ 	StatisticalEvaluation.setDataType({1,*}..{5,*},"real")
+ 	BestIndividuals.setDataType(1,"real")
+ 	allChildren.setDataType(2,"real")
+ 	EvolutionTab.setDataType({1,*}..{3,*},"real")
+ end
+ StatisticalEvaluation.setDataType(2,"integer") -- number of observations
+ 
+ if Evolution.active then Evolution.active := false;end
+ if allOffSpring.active then allOffSpring.active := false;end
+ 
+ HashTable.delete({1,0}..{*,*})
+ IDs.delete({1,1}..{*,*})
+ 
+ dialog.GAWizard.setSensitive("resetGA_but",true)
+ --ResetIsInProgress := false
+RandomSeed: 430
+UUID: 832a25d1-792e-4735-91dc-bbaa3ee71c8a
+$SequenceNumber: 11

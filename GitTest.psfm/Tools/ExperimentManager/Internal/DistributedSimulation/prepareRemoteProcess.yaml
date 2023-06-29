@@ -1,0 +1,38 @@
+InternalClassType: Method
+Coordinate3D: [9.1,-1.85,0]
+Name: prepareRemoteProcess
+Origin: 42f08459-a1ee-41e0-98b3-d5158dee9b83
+Program: |+1
+ -- called by CreateProcess after creation of the remote process
+ -- It is running on the simulation machine (as a remote process)
+ var WizObj:object := ~
+ closeAllWindows
+ 
+ if WizObj.RemoteLowerPrio
+ 	SetProcessPriorityToBelowNormal(true)
+ end
+ 
+ resetInitBox(false)
+ if NOT ~.simulateWithAnimation
+ 	animation(false)
+ end
+ closeConsole(true)
+ 
+ var pathStr:string := to_str(WizObj,".state")
+ if existsObject(pathStr)
+ 	str_to_obj(pathStr).value := "ready"
+ end
+ 
+ if eventController /= void
+ 	eventController.SummaryReport := false
+ 	eventController.RealTime := false
+ 	-- set the attribute ExperimentManager of the EventController in the remote simulation models
+ 	eventController.ExperimentManager := WizObj
+ end;
+ 
+ setErrorHandler(&ErrorHandling)
+RandomSeed: 340
+UUID: dc3cd0d0-6e72-4619-af2c-0521cf5099e4
+$SequenceNumber: 7
+3D:
+ Mirror: [false,false,false]
